@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九一八事变纪念网站 - 铭记历史 勿忘国耻</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* 首页专属样式 */
+        
+        /* 轮播图英雄区域 */
+        .homepage-hero {
+            position: relative;
+            height: 85vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+        
+        .carousel-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 3;
+            width: 90%;
+            max-width: 1000px;
+        }
+        
+        .carousel-caption h2 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .carousel-caption p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(139, 37, 0, 0.8);
+            border-color: #8B2500;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .indicator {
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+        
+        .indicator.active {
+            background: #8B2500;
+            width: 60px;
+        }
+        
+        /* 历史简介 */
+        .intro-section {
+            padding: 6rem 0;
+            background: linear-gradient(to bottom, #fff 0%, #f5f5f5 100%);
+        }
+        
+        .intro-content-enhanced {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .intro-text-enhanced {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .intro-text-enhanced h2 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .intro-text-enhanced p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .intro-quote {
+            background: rgba(139, 37, 0, 0.05);
+            border-left: 4px solid #8B2500;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+        
+        .stats-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-item-enhanced {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(139, 37, 0, 0.05), rgba(139, 37, 0, 0.02));
+            border-radius: 12px;
+            border: 1px solid rgba(139, 37, 0, 0.1);
+        }
+        
+        .stat-number-enhanced {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B2500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label-enhanced {
+            font-size: 1rem;
+            color: #6a6a6a;
+        }
+        
+        /* 章节标题 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            color: #8B2500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title-enhanced {
+            font-size: 2.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: #6a6a6a;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+            margin: 1.5rem auto;
+        }
+        
+        /* 时间轴快速预览 */
+        .timeline-preview {
+            padding: 6rem 0;
+            background: #fff;
+        }
+        
+        .timeline-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .timeline-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #8B2500, #A63100);
+        }
+        
+        .timeline-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(139, 37, 0, 0.2);
+        }
+        
+        .timeline-date {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(139, 37, 0, 0.3);
+        }
+        
+        .timeline-card h3 {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .timeline-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+        }
+        
+        /* 英雄预览 */
+        .heroes-preview-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            position: relative;
+        }
+        
+        .heroes-preview-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .section-header-light {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .section-header-light .section-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .section-header-light h2 {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-header-light .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .heroes-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .hero-preview-card-enhanced {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .hero-preview-card-enhanced:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-8px);
+        }
+        
+        .hero-preview-icon-enhanced {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(139, 37, 0, 0.4);
+        }
+        
+        .hero-preview-card-enhanced h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .hero-preview-card-enhanced .hero-position {
+            font-size: 1rem;
+            color: #8B2500;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .hero-preview-card-enhanced p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .view-more-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 0.5rem;
+            background: #8B2500 !important;
+            color: #fff !important;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 100 !important;
+            cursor: pointer !important;
+            box-shadow: 0 8px 25px rgba(139, 37, 0, 0.3);
+            pointer-events: auto !important;
+            user-select: none;
+        }
+        
+        .view-more-btn:hover,
+        .view-more-btn:focus {
+            background: #6B1D00 !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 35px rgba(139, 37, 0, 0.5) !important;
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        
+        .view-more-btn:active {
+            transform: translateY(-1px) !important;
+        }
+        
+        .view-more-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .view-more-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 快速导航 */
+        .quick-nav-section {
+            padding: 6rem 0;
+            background: #f5f5f5;
+        }
+        
+        .quick-nav-cards-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .quick-nav-card-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-nav-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #8B2500, #A63100);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .quick-nav-card-enhanced:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .quick-nav-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quick-nav-icon-enhanced {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(139, 37, 0, 0.1), rgba(139, 37, 0, 0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #8B2500;
+            transition: all 0.3s;
+        }
+        
+        .quick-nav-card-enhanced:hover .quick-nav-icon-enhanced {
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            transform: scale(1.1);
+        }
+        
+        .quick-nav-card-enhanced h3 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .quick-nav-card-enhanced p {
+            font-size: 1rem;
+            color: #6a6a6a;
+            line-height: 1.6;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .carousel-caption h2 {
+                font-size: 2.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1.2rem;
+            }
+            
+            .intro-content-enhanced {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid-enhanced {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变遇难同胞纪念站">
+                    <span class="site-title">九一八事变遇难同胞纪念站</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <a href="index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">历史专题</a>
+                        <ul class="dropdown">
+                            <li><a href="history.html#background">时代背景</a></li>
+                            <li><a href="history.html#event-timeline">事件经过</a></li>
+                            <li><a href="history.html#key-points">关键节点</a></li>
+                            <li><a href="history.html#impact">历史影响</a></li>
+                            <li><a href="history.html#documents">历史文献</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="heroes.html" class="nav-link">英雄人物</a>
+                        <ul class="dropdown">
+                            <li><a href="heroes.html#heroes">抗日英雄</a></li>
+                            <li><a href="heroes.html#historical-figures">历史人物</a></li>
+                            <li><a href="heroes.html#stories">人物故事</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link">资讯动态</a>
+                        <ul class="dropdown">
+                            <li><a href="news.html#featured">重要史实</a></li>
+                            <li><a href="news.html#latest-news">近期史实</a></li>
+                            <li><a href="news.html#memorial-activities">纪念活动</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="interaction.html" class="nav-link">互动参与</a>
+                        <ul class="dropdown">
+                            <li><a href="interaction.html#message-board">留言板</a></li>
+                            <li><a href="interaction.html#flower">在线献花</a></li>
+                            <li><a href="interaction.html#share">分享感悟</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form id="search-form">
+                    <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">
+                <a href="index.html" class="mobile-nav-link active">首页</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="history.html" class="mobile-nav-link">历史专题</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="heroes.html" class="mobile-nav-link">英雄人物</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="news.html" class="mobile-nav-link">资讯动态</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="interaction.html" class="mobile-nav-link">互动参与</a>
+            </li>
+            <li class="mobile-nav-item">
+                <form id="mobile-search-form">
+                    <input type="text" placeholder="搜索..." id="mobile-search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 轮播图英雄区域 -->
+    <section class="homepage-hero">
+        <div class="carousel-item active">
+            <img src="assets/img/1.png" alt="铭记历史，缅怀先烈">
+            <div class="carousel-caption">
+                <h2>铭记历史，缅怀先烈</h2>
+                <p>珍爱和平，开创未来</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/2.png" alt="九一八事变历史照片">
+            <div class="carousel-caption">
+                <h2>勿忘国耻</h2>
+                <p>1931年9月18日，日本关东军制造柳条湖事件，发动侵华战争</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/3.png" alt="九一八事变纪念碑">
+            <div class="carousel-caption">
+                <h2>以史为鉴，面向未来</h2>
+                <p>警惕战争，维护和平，为中华民族伟大复兴而奋斗</p>
+            </div>
+        </div>
+        
+        <div class="carousel-controls">
+            <button class="carousel-btn carousel-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn carousel-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="carousel-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+        </div>
+    </section>
+
+    <!-- 历史简介 -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL INTRODUCTION</div>
+                <h2 class="section-title-enhanced">铭记历史，勿忘国耻</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    1931年9月18日，日本关东军发动九一八事变，中华民族开启了14年艰苦卓绝的抗战历程
+                </p>
+            </div>
+            
+            <div class="intro-content-enhanced">
+                <div class="intro-text-enhanced">
+                    <p>1931年9月18日夜，日本关东军炮轰沈阳北大营，制造了震惊中外的"九一八事变"。这一事变标志着中国人民抗日战争的开端，也是世界反法西斯战争的起点。</p>
+                    <p>九一八事变后，日本迅速侵占了东北三省，3000万同胞沦为亡国奴。面对日本侵略者的疯狂进攻，东北人民和未撤走的东北军部队，组织起抗日义勇军，奋起抵抗。中国共产党派遣大批干部到东北，组织领导抗日武装斗争。</p>
+                    <div class="intro-quote">
+                        💡 这段惨痛的历史告诫我们：落后就要挨打，发展才能自强。今天，我们纪念九一八事变，就是要铭记历史、缅怀先烈、珍爱和平、开创未来。
+                    </div>
+                </div>
+                
+                <div class="stats-grid-enhanced">
+                    <div class="stat-item-enhanced">
+                        <span class="stat-number-enhanced">1931.9.18</span>
+                        <span class="stat-label-enhanced">事变发生</span>
+                    </div>
+                    <div class="stat-item-enhanced">
+                        <span class="stat-number-enhanced">14年</span>
+                        <span class="stat-label-enhanced">艰苦抗战</span>
+                    </div>
+                    <div class="stat-item-enhanced">
+                        <span class="stat-number-enhanced">3500万+</span>
+                        <span class="stat-label-enhanced">军民伤亡</span>
+                    </div>
+                    <div class="stat-item-enhanced">
+                        <span class="stat-number-enhanced">1945.8.15</span>
+                        <span class="stat-label-enhanced">抗战胜利</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 重要历史节点 -->
+    <section class="timeline-preview">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL MILESTONES</div>
+                <h2 class="section-title-enhanced">重要历史节点</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    从九一八事变到抗战胜利，每一个节点都铭刻着中华民族的苦难与抗争
+                </p>
+            </div>
+            
+            <div class="timeline-cards">
+                <div class="timeline-card">
+                    <div class="timeline-date">1931年9月18日</div>
+                    <h3>柳条湖事件</h3>
+                    <p>日本关东军炸毁南满铁路柳条湖段，反诬中国军队所为，随即炮轰北大营，九一八事变爆发。</p>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-date">1931年9月19日</div>
+                    <h3>沈阳沦陷</h3>
+                    <p>日军占领沈阳，随后4个多月内，整个东北三省全部沦陷，3000万同胞陷入水深火热之中。</p>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-date">1931年9月</div>
+                    <h3>抗日义勇军兴起</h3>
+                    <p>东北各地民众和爱国将士自发组织抗日义勇军，奋起抵抗日本侵略者，揭开了中国人民抗日战争的序幕。</p>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-date">1932年</div>
+                    <h3>东北抗日联军成立</h3>
+                    <p>中国共产党派遣干部到东北，组织领导抗日武装，后发展为东北抗日联军，开展了艰苦卓绝的游击战争。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 英雄群像 -->
+    <section class="heroes-preview-section">
+        <div class="container">
+            <div class="section-header-light">
+                <div class="section-label">HEROES OF THE RESISTANCE</div>
+                <h2>缅怀英烈</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    他们用鲜血和生命捍卫了民族尊严，为抗日战争的最终胜利作出了不朽贡献
+                </p>
+            </div>
+            
+            <div class="heroes-preview-grid">
+                <div class="hero-preview-card-enhanced">
+                    <div class="hero-preview-icon-enhanced">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>杨靖宇</h3>
+                    <p class="hero-position">东北抗日联军第一路军总司令</p>
+                    <p>1940年2月23日，在吉林濛江县（今靖宇县）保安村前三道崴子壮烈牺牲，年仅35岁。敌人解剖其遗体，发现胃里尽是枯草、树皮和棉絮，竟无一粒粮食。</p>
+                </div>
+                <div class="hero-preview-card-enhanced">
+                    <div class="hero-preview-icon-enhanced">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>赵尚志</h3>
+                    <p class="hero-position">东北抗日联军第三路军总指挥</p>
+                    <p>1942年2月12日，在率部对敌作战中身负重伤被俘，宁死不屈，壮烈牺牲，年仅34岁。"南杨北赵"威震东北，日伪军闻风丧胆。</p>
+                </div>
+                <div class="hero-preview-card-enhanced">
+                    <div class="hero-preview-icon-enhanced">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>赵一曼</h3>
+                    <p class="hero-position">东北抗日联军第三军二团政委</p>
+                    <p>1936年8月2日，在珠河县（今尚志市）英勇就义，年仅31岁。她在遗书中写道："母亲对于你没有能尽到教育的责任，实在是遗憾的事情。"</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; position: relative; z-index: 100; pointer-events: none;">
+                <a href="heroes.html#heroes" class="view-more-btn" style="pointer-events: auto;">
+                    了解更多抗日英雄 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <section class="quick-nav-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">QUICK NAVIGATION</div>
+                <h2 class="section-title-enhanced">探索更多</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    深入了解九一八事变的历史、英雄、资讯和互动内容
+                </p>
+            </div>
+            
+            <div class="quick-nav-cards-enhanced">
+                <a href="history.html" class="quick-nav-card-enhanced">
+                    <div class="quick-nav-icon-enhanced">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>历史专题</h3>
+                    <p>了解事变经过与历史影响</p>
+                </a>
+                <a href="heroes.html" class="quick-nav-card-enhanced">
+                    <div class="quick-nav-icon-enhanced">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>英雄人物</h3>
+                    <p>缅怀抗日英烈事迹</p>
+                </a>
+                <a href="news.html" class="quick-nav-card-enhanced">
+                    <div class="quick-nav-icon-enhanced">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>资讯动态</h3>
+                    <p>了解纪念活动资讯</p>
+                </a>
+                <a href="interaction.html" class="quick-nav-card-enhanced">
+                    <div class="quick-nav-icon-enhanced">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>互动参与</h3>
+                    <p>在线献花留言祭奠</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息栏 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变纪念网站">
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="history.html">历史专题</a></li>
+                        <li><a href="heroes.html">英雄人物</a></li>
+                        <li><a href="news.html">资讯动态</a></li>
+                        <li><a href="interaction.html">互动参与</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@918memorial.org</li>
+                        <li><i class="fas fa-phone"></i> 010-12345678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村南大街5号</li>
+                    </ul>
+                </div>
+                <div class="footer-about">
+                    <h4>关于我们</h4>
+                    <p>九一八事变纪念网站致力于铭记历史、缅怀先烈、珍爱和平、开创未来，弘扬爱国主义精神，促进历史教育和和平理念的传播。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 九一八事变纪念网站 版权所有</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 轮播图脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.carousel-item');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentSlide = 0;
+            let autoPlayInterval;
+            
+            function showSlide(index) {
+                items.forEach(item => item.classList.remove('active'));
+                indicators.forEach(ind => ind.classList.remove('active'));
+                
+                items[index].classList.add('active');
+                indicators[index].classList.add('active');
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % items.length;
+                showSlide(currentSlide);
+            }
+            
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + items.length) % items.length;
+                showSlide(currentSlide);
+            }
+            
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 5000);
+            }
+            
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                    stopAutoPlay();
+                    startAutoPlay();
+                });
+            });
+            
+            startAutoPlay();
+        });
+    </script>
+</body>
+
+</html>

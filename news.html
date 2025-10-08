@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资讯动态 - 九一八事变纪念网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* 资讯动态页面专属样式 */
+        
+        /* 英雄区域 */
+        .news-hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .news-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://p11-doubao-search-sign.byteimg.com/labis/b948763c691a936f48f1bdc74ac191bc~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=I4Xr5oZnopWX5jQczOVIaxDg4yA%3D');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            filter: grayscale(100%);
+        }
+        
+        .news-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(139, 37, 0, 0.25), transparent 70%);
+        }
+        
+        .news-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .news-hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        .news-hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .news-hero-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 快速导航 */
+        .quick-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .quick-nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .quick-nav-list a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .quick-nav-list a:hover,
+        .quick-nav-list a.active {
+            background: #8B2500;
+            color: #fff;
+        }
+        
+        /* 章节标题 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            color: #8B2500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title-enhanced {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6a6a6a;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+            margin: 1.5rem auto;
+        }
+        
+        /* 特色新闻卡片 */
+        .featured-news-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            margin-bottom: 4rem;
+            transition: all 0.3s;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .featured-news-enhanced:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+        }
+        
+        .featured-news-image {
+            position: relative;
+            height: 100%;
+            min-height: 280px;
+            overflow: hidden;
+        }
+        
+        .featured-news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.4s;
+        }
+        
+        .featured-news-enhanced:hover .featured-news-image img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 37, 0, 0.4);
+        }
+        
+        .featured-news-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-news-content h3 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .news-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #6a6a6a;
+        }
+        
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .news-meta i {
+            color: #8B2500;
+        }
+        
+        .featured-news-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+        }
+        
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #8B2500;
+            color: #fff;
+            padding: 0.9rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+        
+        .read-more-btn:hover {
+            background: #6B1D00;
+            transform: translateX(5px);
+        }
+        
+        .read-more-btn i {
+            transition: transform 0.3s;
+        }
+        
+        .read-more-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 新闻网格 */
+        .news-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .news-card-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .news-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.4s;
+        }
+        
+        .news-card-enhanced:hover .news-card-image img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+        
+        .news-card-content {
+            padding: 2rem;
+        }
+        
+        .news-card-content h3 {
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .news-card-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 侧边栏 */
+        .news-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        
+        .sidebar-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #8B2500;
+        }
+        
+        .hot-news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hot-news-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+        
+        .hot-news-item:hover {
+            background: rgba(139, 37, 0, 0.02);
+            padding-left: 0.5rem;
+        }
+        
+        .news-rank {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .hot-news-item:nth-child(1) .news-rank {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+        
+        .hot-news-item:nth-child(2) .news-rank {
+            background: linear-gradient(135deg, #C0C0C0, #808080);
+        }
+        
+        .hot-news-item:nth-child(3) .news-rank {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+        }
+        
+        .hot-news-title {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #2c2c2c;
+            line-height: 1.5;
+        }
+        
+        .hot-news-item a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+        }
+        
+        .hot-news-item a:hover .hot-news-title {
+            color: #8B2500;
+        }
+        
+        .related-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .related-links li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .related-links a {
+            color: #4a4a4a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .related-links a:hover {
+            color: #8B2500;
+            padding-left: 0.5rem;
+        }
+        
+        .related-links i {
+            color: #8B2500;
+        }
+        
+        .subscribe-form {
+            margin-top: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #8B2500;
+            box-shadow: 0 0 0 3px rgba(139, 37, 0, 0.1);
+        }
+        
+        .subscribe-btn {
+            width: 100%;
+            background: #8B2500;
+            color: #fff;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .subscribe-btn:hover {
+            background: #6B1D00;
+        }
+        
+        /* 纪念活动 */
+        .activities-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .activity-card-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .activity-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .activity-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .activity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.4s;
+        }
+        
+        .activity-card-enhanced:hover .activity-image img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+        
+        .activity-content {
+            padding: 2rem;
+        }
+        
+        .activity-content h3 {
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .activity-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #6a6a6a;
+        }
+        
+        .activity-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .activity-meta i {
+            color: #8B2500;
+        }
+        
+        .activity-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .news-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-news-enhanced {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-news-image {
+                min-height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .news-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .quick-nav-list {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变遇难同胞纪念站">
+                    <span class="site-title">九一八事变遇难同胞纪念站</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">历史专题</a>
+                        <ul class="dropdown">
+                            <li><a href="history.html#background">时代背景</a></li>
+                            <li><a href="history.html#event-timeline">事件经过</a></li>
+                            <li><a href="history.html#key-points">关键节点</a></li>
+                            <li><a href="history.html#impact">历史影响</a></li>
+                            <li><a href="history.html#documents">历史文献</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="heroes.html" class="nav-link">英雄人物</a>
+                        <ul class="dropdown">
+                            <li><a href="heroes.html#heroes">抗日英雄</a></li>
+                            <li><a href="heroes.html#historical-figures">历史人物</a></li>
+                            <li><a href="heroes.html#stories">人物故事</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="news.html" class="nav-link">资讯动态</a>
+                        <ul class="dropdown">
+                            <li><a href="#featured">重要史实</a></li>
+                            <li><a href="#latest-news">近期史实</a></li>
+                            <li><a href="#memorial-activities">纪念活动</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="interaction.html" class="nav-link">互动参与</a>
+                        <ul class="dropdown">
+                            <li><a href="interaction.html#message-board">留言板</a></li>
+                            <li><a href="interaction.html#flower">在线献花</a></li>
+                            <li><a href="interaction.html#share">分享感悟</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form id="search-form">
+                    <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">
+                <a href="index.html" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="history.html" class="mobile-nav-link">历史专题</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="heroes.html" class="mobile-nav-link">英雄人物</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="news.html" class="mobile-nav-link active">资讯动态</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="interaction.html" class="mobile-nav-link">互动参与</a>
+            </li>
+            <li class="mobile-nav-item">
+                <form id="mobile-search-form">
+                    <input type="text" placeholder="搜索..." id="mobile-search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="news-hero">
+        <div class="news-hero-content">
+            <div class="news-hero-subtitle">NEWS & EVENTS</div>
+            <h1 class="news-hero-title">资讯动态</h1>
+            <p class="news-hero-description">
+                关注九一八事变相关资讯，了解纪念活动和历史研究最新动态，让历史的记忆永存心间
+            </p>
+        </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <nav class="quick-nav">
+        <div class="container">
+            <ul class="quick-nav-list">
+                <li><a href="#featured" class="quick-nav-link">重要史实</a></li>
+                <li><a href="#latest-news" class="quick-nav-link">近期史实</a></li>
+                <li><a href="#memorial-activities" class="quick-nav-link">纪念活动</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 重要史实 - 特色新闻 -->
+    <section id="featured" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">FEATURED NEWS</div>
+                <h2 class="section-title-enhanced">重要史实</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    铭记历史，珍爱和平，关注九一八事变最新资讯
+                </p>
+            </div>
+
+            <div class="featured-news-enhanced">
+                <div class="featured-news-image">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/b948763c691a936f48f1bdc74ac191bc~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=I4Xr5oZnopWX5jQczOVIaxDg4yA%3D"
+                        alt="勿忘九一八">
+                    <span class="featured-badge">置顶推荐</span>
+                </div>
+                <div class="featured-news-content">
+                    <h3>勿忘九一八！</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar-alt"></i> 2025-09-18</span>
+                        <span><i class="fas fa-newspaper"></i> 新华社</span>
+                    </div>
+                    <p>今年是"九一八"事变爆发94周年。穿越历史时空，14载艰苦卓绝的抗战史，已深深融入中国人的民族记忆中。我们铭记历史，是为了捍卫这来之不易的和平，为了更好地前行。</p>
+                    <a href="https://www.news.cn/politics/20250918/38bb6c1cd17149779a9a18e995d10f54/c.html" target="_blank" class="read-more-btn">
+                        查看详情 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 近期史实 -->
+    <section id="latest-news" style="padding: 5rem 0; background: #f5f5f5;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">LATEST NEWS</div>
+                <h2 class="section-title-enhanced">近期史实</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    最新的九一八事变纪念活动和历史研究成果
+                </p>
+            </div>
+
+            <div class="news-layout">
+                <div class="news-main">
+                    <div class="news-grid-enhanced">
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://news-vod.voc.com.cn/9/2023/09/03/d371ac94741d87d4a6a6b185671c0506b337b1681693724309.jpg?pid=6668935"
+                                    alt="铭记九一八">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>铭记"九一八"，谁都阻挡不了我们踏浪奋进</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2020-09-18</span>
+                                    <span><i class="fas fa-newspaper"></i> 人民日报</span>
+                                </div>
+                                <p>历史长河，能留住几寸光阴？能铭记几个瞬间？"九一八"便是其一，深刻在中华民族的时间柱上，永远不会磨掉。</p>
+                                <a href="http://opinion.people.com.cn/n1/2021/0918/c223228-32230638.html" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://paper.people.com.cn/rmrb/images/1/20240919/1726689300395_1.jpg"
+                                    alt="铭记历史 维护和平">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>铭记历史 维护和平</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2024-09-18</span>
+                                    <span><i class="fas fa-newspaper"></i> 人民日报</span>
+                                </div>
+                                <p>今年是九一八事变爆发93周年。9月18日上午，勿忘九一八撞钟鸣警仪式在辽宁省沈阳市九一八历史博物馆残历碑广场举行。</p>
+                                <a href="https://paper.people.com.cn/rmrb/html/2024-09/19/nw.D110000renmrb_20240919_5-04.htm" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://n.sinaimg.cn/sinakd20250918s/384/w2048h1536/20250918/ada0-488f18add88d7e392db036a497bfa0e9.jpg"
+                                    alt="撞钟鸣警仪式">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>勿忘九一八撞钟鸣警仪式在沈阳举行</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2025-09-19</span>
+                                    <span><i class="fas fa-newspaper"></i> 光明日报</span>
+                                </div>
+                                <p>今年是九一八事变爆发94周年。18日上午，社会各界人士在沈阳隆重集会，举行勿忘九一八撞钟鸣警仪式，以铭记历史、缅怀先烈。</p>
+                                <a href="http://www.1937china.com/" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://images.shobserver.com/img/2025/09/18/l_cb20250918110107553098_27345fc4f2ee420d830a802a2eef8670.jpg"
+                                    alt="勿忘历史，吾辈自强">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>勿忘历史，吾辈自强 纪念"九一八"事变94周年</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2025-09-18</span>
+                                    <span><i class="fas fa-newspaper"></i> 解放日报</span>
+                                </div>
+                                <p>上海淞沪抗战纪念馆开展主题纪念活动。全体人员面向无名英雄纪念碑肃立默哀，敬献花篮，各界代表依次献花。</p>
+                                <a href="https://www.jfdaily.com/staticsg/res/html/web/newsDetail.html?id=984765" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D"
+                                    alt="学术研讨会">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>"九一八事变与中华民族觉醒学术研讨会"在辽宁举行</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2018-08-22</span>
+                                    <span><i class="fas fa-newspaper"></i> 中国社会科学网</span>
+                                </div>
+                                <p>中国社会科学院近代史研究所举办了"九一八事变与中国抗日战争"学术研讨会，来自全国各地的专家学者参加了此次会议。</p>
+                                <a href="http://jds.cssn.cn/newzxdt/202101/t20210128_5296903.shtml" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="news-card-enhanced">
+                            <div class="news-card-image">
+                                <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/SjKnXKM4BF6d6P~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=pLtyUjy1uWEy0eP7iz6AqmdfXUQ%3D"
+                                    alt="历史文献发布">
+                            </div>
+                            <div class="news-card-content">
+                                <h3>勿忘九一八撞钟鸣警仪式在辽宁沈阳举行</h3>
+                                <div class="news-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 2025-09-19</span>
+                                    <span><i class="fas fa-newspaper"></i> 辽宁省人民政府</span>
+                                </div>
+                                <p>九一八事变历史文献发布会在沈阳举行，会上发布了一批新发现的九一八事变历史文献，为研究九一八事变提供了新的资料。</p>
+                                <a href="https://www.ln.gov.cn/web/ywdt/zymtkln/2025091909325380910/index.shtml" target="_blank" class="read-more-btn">
+                                    阅读全文 <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 侧边栏 -->
+                <aside class="news-sidebar">
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">重点关注</h3>
+                        <ul class="hot-news-list">
+                            <li class="hot-news-item">
+                                <a href="https://www.ln.gov.cn/web/ywdt/zymtkln/2025091909325380910/index.shtml" target="_blank">
+                                    <span class="news-rank">1</span>
+                                    <span class="hot-news-title">九一八事变历史文献发布会在沈阳举行</span>
+                                </a>
+                            </li>
+                            <li class="hot-news-item">
+                                <a href="http://jds.cssn.cn/newzxdt/202101/t20210128_5296903.shtml" target="_blank">
+                                    <span class="news-rank">2</span>
+                                    <span class="hot-news-title">九一八事变与中华民族觉醒学术研讨会</span>
+                                </a>
+                            </li>
+                            <li class="hot-news-item">
+                                <a href="https://www.jfdaily.com/staticsg/res/html/web/newsDetail.html?id=984765" target="_blank">
+                                    <span class="news-rank">3</span>
+                                    <span class="hot-news-title">上海淞沪抗战纪念馆开展主题纪念活动</span>
+                                </a>
+                            </li>
+                            <li class="hot-news-item">
+                                <a href="https://news.ccmapp.cn/news/detail?id=68cba32fac660d32d21a3ce6" target="_blank">
+                                    <span class="news-rank">4</span>
+                                    <span class="hot-news-title">南昌馆际联动举办"九一八"主题纪念活动</span>
+                                </a>
+                            </li>
+                            <li class="hot-news-item">
+                                <a href="https://baijiahao.baidu.com/s?id=1843586784636468011" target="_blank">
+                                    <span class="news-rank">5</span>
+                                    <span class="hot-news-title">侵华日军南京大屠杀遇难同胞纪念馆举行多项活动</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">相关资源</h3>
+                        <ul class="related-links">
+                            <li><a href="https://www.1937china.com/" target="_blank"><i class="fas fa-external-link-alt"></i> 中国战争胜利网</a></li>
+                            <li><a href="http://jds.cssn.cn/" target="_blank"><i class="fas fa-external-link-alt"></i> 中国历史科学院</a></li>
+                            <li><a href="https://www.xinhuanet.com/home.htm" target="_blank"><i class="fas fa-external-link-alt"></i> 新华社</a></li>
+                            <li><a href="http://www.people.com.cn/" target="_blank"><i class="fas fa-external-link-alt"></i> 人民网</a></li>
+                            <li><a href="https://www.gmw.cn/" target="_blank"><i class="fas fa-external-link-alt"></i> 光明网</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">资讯订阅</h3>
+                        <form class="subscribe-form">
+                            <div class="form-group">
+                                <label for="email">邮箱地址</label>
+                                <input type="email" id="email" placeholder="请输入您的邮箱">
+                            </div>
+                            <button type="submit" class="subscribe-btn">订阅资讯</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- 纪念活动 -->
+    <section id="memorial-activities" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">MEMORIAL ACTIVITIES</div>
+                <h2 class="section-title-enhanced">纪念活动</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    各地举办的九一八事变纪念活动和相关学术研讨
+                </p>
+            </div>
+
+            <div class="activities-grid-enhanced">
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://n.sinaimg.cn/sinakd20250918s/384/w2048h1536/20250918/ada0-488f18add88d7e392db036a497bfa0e9.jpg"
+                            alt="勿忘九一八撞钟鸣警仪式">
+                    </div>
+                    <div class="activity-content">
+                        <h3>勿忘九一八撞钟鸣警仪式在沈阳举行</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2025-09-18</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 沈阳九一八历史博物馆</span>
+                        </div>
+                        <p>今年是九一八事变爆发94周年。18日上午，社会各界人士在沈阳隆重集会，举行勿忘九一八撞钟鸣警仪式，以铭记历史、缅怀先烈。</p>
+                        <a href="http://www.1937china.com/" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://images.shobserver.com/img/2025/09/18/l_cb20250918110107553098_27345fc4f2ee420d830a802a2eef8670.jpg"
+                            alt="上海淞沪抗战纪念馆">
+                    </div>
+                    <div class="activity-content">
+                        <h3>勿忘历史，吾辈自强 纪念"九一八"事变94周年</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2025-09-18</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 上海淞沪抗战纪念馆</span>
+                        </div>
+                        <p>上海淞沪抗战纪念馆开展主题纪念活动。全体人员面向无名英雄纪念碑肃立默哀，敬献花篮，各界代表依次献花，表达对烈士和遇难同胞的深切哀悼。</p>
+                        <a href="https://www.jfdaily.com/staticsg/res/html/web/newsDetail.html?id=984765" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://paper.people.com.cn/rmrb/images/1/20240919/1726689300395_1.jpg"
+                            alt="九一八撞钟鸣警仪式">
+                    </div>
+                    <div class="activity-content">
+                        <h3>铭记历史 维护和平</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2024-09-18</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 沈阳九一八历史博物馆</span>
+                        </div>
+                        <p>今年是九一八事变爆发93周年。9月18日上午，勿忘九一八撞钟鸣警仪式在辽宁省沈阳市九一八历史博物馆残历碑广场举行。</p>
+                        <a href="https://paper.people.com.cn/rmrb/html/2024-09/19/nw.D110000renmrb_20240919_5-04.htm" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/fa586fe8f3121f46539ed0283b3ef9b6~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=fPpaCjG7FIbD2kxmYYucNa6EAxc%3D"
+                            alt="九一八事变历史讲座">
+                    </div>
+                    <div class="activity-content">
+                        <h3>九一八事变历史讲座</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2023-09-15</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 北京大学历史系</span>
+                        </div>
+                        <p>北京大学历史系举办了"九一八事变与中国抗日战争"主题讲座，邀请了著名历史学家进行演讲。讲座深入分析了九一八事变的历史背景、经过和影响。</p>
+                        <a href="https://www.pku.edu.cn/" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D"
+                            alt="九一八事变学术研讨会">
+                    </div>
+                    <div class="activity-content">
+                        <h3>九一八事变学术研讨会</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2023-09-10</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 中国社会科学院近代史研究所</span>
+                        </div>
+                        <p>中国社会科学院近代史研究所举办了"九一八事变与中国抗日战争"学术研讨会，来自全国各地的专家学者参加了此次会议。</p>
+                        <a href="http://jds.cssn.cn/" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="activity-card-enhanced">
+                    <div class="activity-image">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/b948763c691a936f48f1bdc74ac191bc~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=I4Xr5oZnopWX5jQczOVIaxDg4yA%3D"
+                            alt="九一八事变纪念活动">
+                    </div>
+                    <div class="activity-content">
+                        <h3>九一八事变90周年纪念活动</h3>
+                        <div class="activity-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2021-09-18</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 沈阳九一八历史博物馆</span>
+                        </div>
+                        <p>为纪念九一八事变90周年，沈阳九一八历史博物馆举行了隆重的纪念仪式，包括敬献花篮、默哀、撞钟等活动。</p>
+                        <a href="http://www.918museum.org.cn/" target="_blank" class="read-more-btn">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息栏 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变纪念网站">
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="history.html">历史专题</a></li>
+                        <li><a href="heroes.html">英雄人物</a></li>
+                        <li><a href="news.html">资讯动态</a></li>
+                        <li><a href="interaction.html">互动参与</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@918memorial.org</li>
+                        <li><i class="fas fa-phone"></i> 010-12345678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村南大街5号</li>
+                    </ul>
+                </div>
+                <div class="footer-about">
+                    <h4>关于我们</h4>
+                    <p>九一八事变纪念网站致力于铭记历史、缅怀先烈、珍爱和平、开创未来，弘扬爱国主义精神，促进历史教育和和平理念的传播。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 九一八事变纪念网站 版权所有</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 快速导航高亮
+            const quickNavLinks = document.querySelectorAll('.quick-nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                quickNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 订阅功能
+            const subscribeForm = document.querySelector('.subscribe-form');
+            subscribeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                if (!email) {
+                    alert('请输入您的邮箱地址');
+                    return;
+                }
+                alert('订阅成功！感谢您的关注。');
+                subscribeForm.reset();
+            });
+        });
+    </script>
+</body>
+
+</html>

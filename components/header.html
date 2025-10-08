@@ -1,0 +1,88 @@
+<!-- 公共页头组件 - 统一管理，实现高内聚低耦合 -->
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html" class="logo-link">
+                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                    alt="九一八事变纪念网站">
+                <span class="site-title">九一八纪念站</span>
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-menu">
+                <li class="nav-item" data-page="index">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item" data-page="history">
+                    <a href="history.html" class="nav-link">历史专题</a>
+                    <ul class="dropdown">
+                        <li><a href="history.html#background">时代背景</a></li>
+                        <li><a href="history.html#event-timeline">事件经过</a></li>
+                        <li><a href="history.html#key-points">关键节点</a></li>
+                        <li><a href="history.html#documents">历史文献</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-page="heroes">
+                    <a href="heroes.html" class="nav-link">英雄人物</a>
+                    <ul class="dropdown">
+                        <li><a href="heroes.html#heroes">抗日英雄</a></li>
+                        <li><a href="heroes.html#historical-figures">历史人物</a></li>
+                        <li><a href="heroes.html#stories">人物故事</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-page="news">
+                    <a href="news.html" class="nav-link">资讯动态</a>
+                    <ul class="dropdown">
+                        <li><a href="news.html">重要史实</a></li>
+                        <li><a href="news.html#memorial-activities">纪念活动</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-page="interaction">
+                    <a href="interaction.html" class="nav-link">互动参与</a>
+                    <ul class="dropdown">
+                        <li><a href="interaction.html#message-board">留言板</a></li>
+                        <li><a href="interaction.html#flower">在线献花</a></li>
+                        <li><a href="interaction.html#share">分享感悟</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="search">
+            <form id="search-form">
+                <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+</header>
+
+<!-- 移动端菜单 -->
+<div class="mobile-menu">
+    <ul class="mobile-nav">
+        <li class="mobile-nav-item">
+            <a href="index.html" class="mobile-nav-link" data-page="index">首页</a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="history.html" class="mobile-nav-link" data-page="history">历史专题</a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="heroes.html" class="mobile-nav-link" data-page="heroes">英雄人物</a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="news.html" class="mobile-nav-link" data-page="news">资讯动态</a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="interaction.html" class="mobile-nav-link" data-page="interaction">互动参与</a>
+        </li>
+        <li class="mobile-nav-item">
+            <form id="mobile-search-form">
+                <input type="text" placeholder="搜索..." id="mobile-search-input">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </li>
+    </ul>
+</div>
+

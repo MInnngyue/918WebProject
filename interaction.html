@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动参与 - 九一八事变纪念网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* 互动参与页面专属样式 */
+        
+        /* 英雄区域 */
+        .interaction-hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .interaction-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            filter: grayscale(100%);
+        }
+        
+        .interaction-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(139, 37, 0, 0.25), transparent 70%);
+        }
+        
+        .interaction-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .interaction-hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        .interaction-hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .interaction-hero-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 快速导航 */
+        .quick-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .quick-nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .quick-nav-list a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .quick-nav-list a:hover,
+        .quick-nav-list a.active {
+            background: #8B2500;
+            color: #fff;
+        }
+        
+        /* 章节标题 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            color: #8B2500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title-enhanced {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6a6a6a;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+            margin: 1.5rem auto;
+        }
+        
+        /* 表单样式 */
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-card h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c2c2c;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B2500;
+            box-shadow: 0 0 0 3px rgba(139, 37, 0, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background: #8B2500;
+            color: #fff;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-btn:hover {
+            background: #6B1D00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 37, 0, 0.3);
+        }
+        
+        /* 留言板 */
+        .message-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        
+        .messages-list-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .messages-list-card h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .message-item {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f8f8;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .message-item:hover {
+            background: rgba(139, 37, 0, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .message-name {
+            font-weight: 700;
+            color: #8B2500;
+            font-size: 1.1rem;
+        }
+        
+        .message-date {
+            font-size: 0.9rem;
+            color: #6a6a6a;
+        }
+        
+        .message-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+        }
+        
+        /* 献花区域 */
+        .flower-section-enhanced {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            position: relative;
+        }
+        
+        .flower-section-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .flower-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .flower-interactive {
+            text-align: center;
+        }
+        
+        .flower-container-enhanced {
+            position: relative;
+            margin: 0 auto 3rem;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .flower-display {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .flower-count-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #8B2500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .flower-label {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .flower-effects {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .flower-particle {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUp 2s ease-out forwards;
+            opacity: 1;
+        }
+        
+        @keyframes floatUp {
+            to {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+        }
+        
+        .flower-btn-enhanced {
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            padding: 1.5rem 4rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(139, 37, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .flower-btn-enhanced:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(139, 37, 0, 0.5);
+        }
+        
+        .flower-btn-enhanced.active {
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+        }
+        
+        .flower-messages-enhanced {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+        
+        .flower-messages-enhanced h3 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .flower-message-item {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid #8B2500;
+        }
+        
+        .flower-message-name {
+            font-weight: 700;
+            color: #8B2500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .flower-message-text {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        /* 分享感悟 */
+        .share-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        
+        .shares-list-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .shares-list-card h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .share-item {
+            padding: 2rem;
+            border-radius: 12px;
+            background: #f8f8f8;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .share-item:hover {
+            background: rgba(139, 37, 0, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .share-title {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .share-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #6a6a6a;
+        }
+        
+        .share-content-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .share-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .like-btn,
+        .comment-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4a4a4a;
+        }
+        
+        .like-btn:hover,
+        .comment-btn:hover {
+            border-color: #8B2500;
+            color: #8B2500;
+            background: rgba(139, 37, 0, 0.05);
+        }
+        
+        .like-btn i,
+        .comment-btn i {
+            transition: all 0.3s;
+        }
+        
+        .like-btn:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .message-layout,
+            .share-layout,
+            .flower-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .interaction-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .quick-nav-list {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变遇难同胞纪念站">
+                    <span class="site-title">九一八事变遇难同胞纪念站</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">历史专题</a>
+                        <ul class="dropdown">
+                            <li><a href="history.html#background">时代背景</a></li>
+                            <li><a href="history.html#event-timeline">事件经过</a></li>
+                            <li><a href="history.html#key-points">关键节点</a></li>
+                            <li><a href="history.html#impact">历史影响</a></li>
+                            <li><a href="history.html#documents">历史文献</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="heroes.html" class="nav-link">英雄人物</a>
+                        <ul class="dropdown">
+                            <li><a href="heroes.html#heroes">抗日英雄</a></li>
+                            <li><a href="heroes.html#historical-figures">历史人物</a></li>
+                            <li><a href="heroes.html#stories">人物故事</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link">资讯动态</a>
+                        <ul class="dropdown">
+                            <li><a href="news.html#featured">重要史实</a></li>
+                            <li><a href="news.html#latest-news">近期史实</a></li>
+                            <li><a href="news.html#memorial-activities">纪念活动</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="interaction.html" class="nav-link">互动参与</a>
+                        <ul class="dropdown">
+                            <li><a href="#message-board">留言板</a></li>
+                            <li><a href="#flower">在线献花</a></li>
+                            <li><a href="#share">分享感悟</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form id="search-form">
+                    <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">
+                <a href="index.html" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="history.html" class="mobile-nav-link">历史专题</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="heroes.html" class="mobile-nav-link">英雄人物</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="news.html" class="mobile-nav-link">资讯动态</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="interaction.html" class="mobile-nav-link active">互动参与</a>
+            </li>
+            <li class="mobile-nav-item">
+                <form id="mobile-search-form">
+                    <input type="text" placeholder="搜索..." id="mobile-search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="interaction-hero">
+        <div class="interaction-hero-content">
+            <div class="interaction-hero-subtitle">INTERACTIVE PARTICIPATION</div>
+            <h1 class="interaction-hero-title">互动参与</h1>
+            <p class="interaction-hero-description">
+                留下您的心声，献上您的鲜花，分享您的感悟。让我们共同铭记历史，缅怀先烈，珍爱和平
+            </p>
+        </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <nav class="quick-nav">
+        <div class="container">
+            <ul class="quick-nav-list">
+                <li><a href="#message-board" class="quick-nav-link">留言板</a></li>
+                <li><a href="#flower" class="quick-nav-link">在线献花</a></li>
+                <li><a href="#share" class="quick-nav-link">分享感悟</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 留言板 -->
+    <section id="message-board" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">MESSAGE BOARD</div>
+                <h2 class="section-title-enhanced">留言板</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    写下您的心声，表达您对历史的铭记和对和平的珍视
+                </p>
+            </div>
+
+            <div class="message-layout">
+                <div class="form-card">
+                    <h3>发表留言</h3>
+                    <form id="message-form">
+                        <div class="form-group">
+                            <label for="name">姓名 *</label>
+                            <input type="text" id="name" placeholder="请输入您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" placeholder="请输入您的邮箱（选填）">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言内容 *</label>
+                            <textarea id="message" placeholder="请输入您的留言内容" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> 提交留言
+                        </button>
+                    </form>
+                </div>
+
+                <div class="messages-list-card">
+                    <h3>留言列表</h3>
+                    <div id="messages-container">
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-name">张三</span>
+                                <span class="message-date">2023-09-18</span>
+                            </div>
+                            <div class="message-content">
+                                铭记历史，缅怀先烈，珍爱和平，开创未来。我们要以史为鉴，努力学习，为实现中华民族伟大复兴而奋斗。
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-name">李四</span>
+                                <span class="message-date">2023-09-17</span>
+                            </div>
+                            <div class="message-content">
+                                九一八事变是中国近代史上的耻辱，我们要永远铭记这段历史，警惕日本军国主义复活，维护世界和平。
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-name">王五</span>
+                                <span class="message-date">2023-09-16</span>
+                            </div>
+                            <div class="message-content">
+                                今天参观了九一八事变纪念馆，心情非常沉重。我们要铭记历史，珍惜现在的和平生活，为祖国的繁荣富强而努力。
+                            </div>
+                        </div>
+                        <div class="message-item">
+                            <div class="message-header">
+                                <span class="message-name">赵六</span>
+                                <span class="message-date">2023-09-15</span>
+                            </div>
+                            <div class="message-content">
+                                作为一名中学生，我要好好学习历史，了解九一八事变的真相，增强民族自豪感和责任感，为实现中国梦贡献自己的力量。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 在线献花 -->
+    <section id="flower" class="flower-section-enhanced">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label" style="color: rgba(255, 255, 255, 0.7);">VIRTUAL FLOWER OFFERING</div>
+                <h2 class="section-title-enhanced" style="color: #fff;">在线献花</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">
+                    每一朵鲜花，都代表着我们对先烈的缅怀和敬意
+                </p>
+            </div>
+
+            <div class="flower-content">
+                <div class="flower-interactive">
+                    <div class="flower-container-enhanced">
+                        <div class="flower-display">
+                            <div class="flower-count-display" id="flower-count">1258</div>
+                            <div class="flower-label">朵鲜花</div>
+                        </div>
+                        <div class="flower-effects" id="flower-effects"></div>
+                    </div>
+                    <button id="flower-btn" class="flower-btn-enhanced">
+                        <i class="fas fa-heart"></i> 献花
+                    </button>
+                </div>
+
+                <div class="flower-messages-enhanced">
+                    <h3>献花墙</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem; line-height: 1.8;">
+                        每一朵鲜花，都代表着我们对先烈的缅怀和敬意；每一份祝福，都承载着我们对和平的珍视和期盼。
+                    </p>
+                    <div class="flower-message-item">
+                        <span class="flower-message-name">张三</span>
+                        <span class="flower-message-text">缅怀先烈，致敬英雄！</span>
+                    </div>
+                    <div class="flower-message-item">
+                        <span class="flower-message-name">李四</span>
+                        <span class="flower-message-text">铭记历史，珍爱和平！</span>
+                    </div>
+                    <div class="flower-message-item">
+                        <span class="flower-message-name">王五</span>
+                        <span class="flower-message-text">先烈永垂不朽，精神代代相传！</span>
+                    </div>
+                    <div class="flower-message-item">
+                        <span class="flower-message-name">赵六</span>
+                        <span class="flower-message-text">以史为鉴，开创未来！</span>
+                    </div>
+                    <div class="flower-message-item">
+                        <span class="flower-message-name">钱七</span>
+                        <span class="flower-message-text">勿忘国耻，振兴中华！</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分享感悟 -->
+    <section id="share" style="padding: 5rem 0; background: #f5f5f5;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">SHARE YOUR THOUGHTS</div>
+                <h2 class="section-title-enhanced">分享感悟</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    分享您对九一八事变的感悟和思考，与更多人交流历史的启示
+                </p>
+            </div>
+
+            <div class="share-layout">
+                <div class="form-card">
+                    <h3>发表感悟</h3>
+                    <form id="share-form">
+                        <div class="form-group">
+                            <label for="share-name">姓名 *</label>
+                            <input type="text" id="share-name" placeholder="请输入您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="share-title">标题 *</label>
+                            <input type="text" id="share-title" placeholder="请输入感悟标题" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="share-content">感悟内容 *</label>
+                            <textarea id="share-content" rows="6" placeholder="请输入您的感悟内容" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-share-alt"></i> 提交感悟
+                        </button>
+                    </form>
+                </div>
+
+                <div class="shares-list-card">
+                    <h3>感悟列表</h3>
+                    <div id="shares-container">
+                        <div class="share-item">
+                            <h4 class="share-title">铭记历史，珍惜和平</h4>
+                            <div class="share-meta">
+                                <span class="share-name">张三</span>
+                                <span class="share-date">2023-09-18</span>
+                            </div>
+                            <div class="share-content-text">
+                                九一八事变是中国近代史上的一个重要转折点，它使中国人民深刻认识到了日本帝国主义的侵略本质，激发了中国人民的民族觉醒和爱国精神。我们要铭记历史，珍惜现在的和平生活，为祖国的繁荣富强而努力。
+                            </div>
+                            <div class="share-actions">
+                                <button class="like-btn"><i class="far fa-heart"></i> <span>45</span></button>
+                                <button class="comment-btn"><i class="far fa-comment"></i> <span>12</span></button>
+                            </div>
+                        </div>
+
+                        <div class="share-item">
+                            <h4 class="share-title">以史为鉴，开创未来</h4>
+                            <div class="share-meta">
+                                <span class="share-name">李四</span>
+                                <span class="share-date">2023-09-17</span>
+                            </div>
+                            <div class="share-content-text">
+                                九一八事变给中国人民带来了沉重的灾难，但也激发了中国人民的民族觉醒和爱国精神。我们要以史为鉴，不忘国耻，努力学习，为实现中华民族伟大复兴而奋斗。
+                            </div>
+                            <div class="share-actions">
+                                <button class="like-btn"><i class="far fa-heart"></i> <span>38</span></button>
+                                <button class="comment-btn"><i class="far fa-comment"></i> <span>9</span></button>
+                            </div>
+                        </div>
+
+                        <div class="share-item">
+                            <h4 class="share-title">缅怀先烈，致敬英雄</h4>
+                            <div class="share-meta">
+                                <span class="share-name">王五</span>
+                                <span class="share-date">2023-09-16</span>
+                            </div>
+                            <div class="share-content-text">
+                                在九一八事变中，无数先烈为了国家的独立和民族的尊严，不惜牺牲自己的生命。他们的精神值得我们永远铭记和缅怀。作为新时代的中国青年，我们要继承和发扬先烈的爱国精神。
+                            </div>
+                            <div class="share-actions">
+                                <button class="like-btn"><i class="far fa-heart"></i> <span>52</span></button>
+                                <button class="comment-btn"><i class="far fa-comment"></i> <span>15</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息栏 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变纪念网站">
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="history.html">历史专题</a></li>
+                        <li><a href="heroes.html">英雄人物</a></li>
+                        <li><a href="news.html">资讯动态</a></li>
+                        <li><a href="interaction.html">互动参与</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@918memorial.org</li>
+                        <li><i class="fas fa-phone"></i> 010-12345678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村南大街5号</li>
+                    </ul>
+                </div>
+                <div class="footer-about">
+                    <h4>关于我们</h4>
+                    <p>九一八事变纪念网站致力于铭记历史、缅怀先烈、珍爱和平、开创未来，弘扬爱国主义精神，促进历史教育和和平理念的传播。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 九一八事变纪念网站 版权所有</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 交互脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 快速导航高亮
+            const quickNavLinks = document.querySelectorAll('.quick-nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                quickNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 留言板功能
+            const messageForm = document.getElementById('message-form');
+            const messagesContainer = document.getElementById('messages-container');
+
+            messageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const message = document.getElementById('message').value;
+                
+                if (!name || !message) {
+                    alert('请填写完整的留言信息');
+                    return;
+                }
+                
+                const now = new Date();
+                const dateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                
+                const messageItem = document.createElement('div');
+                messageItem.className = 'message-item';
+                messageItem.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-name">${name}</span>
+                        <span class="message-date">${dateString}</span>
+                    </div>
+                    <div class="message-content">${message}</div>
+                `;
+                
+                messagesContainer.insertBefore(messageItem, messagesContainer.firstChild);
+                messageForm.reset();
+                alert('留言提交成功！');
+            });
+
+            // 献花功能
+            const flowerBtn = document.getElementById('flower-btn');
+            const flowerCount = document.getElementById('flower-count');
+            const flowerEffects = document.getElementById('flower-effects');
+
+            function loadFlowerCount() {
+                const savedCount = localStorage.getItem('flowerCount');
+                if (savedCount) {
+                    flowerCount.textContent = savedCount;
+                }
+            }
+
+            function createFlowerEffect() {
+                const flowers = ['🌸', '🌺', '🌻', '🌷', '🌹', '💐'];
+                const particleCount = 8;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'flower-particle';
+                    particle.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                    
+                    const angle = (Math.PI * 2 * i) / particleCount;
+                    const radius = 100;
+                    const x = Math.cos(angle) * radius + 150;
+                    const y = Math.sin(angle) * radius + 150;
+                    
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    
+                    flowerEffects.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 2000);
+                }
+            }
+
+            flowerBtn.addEventListener('click', function() {
+                let count = parseInt(flowerCount.textContent);
+                count += 1;
+                flowerCount.textContent = count;
+                
+                flowerBtn.classList.add('active');
+                setTimeout(() => {
+                    flowerBtn.classList.remove('active');
+                }, 500);
+                
+                createFlowerEffect();
+                localStorage.setItem('flowerCount', count);
+            });
+
+            // 分享感悟功能
+            const shareForm = document.getElementById('share-form');
+            const sharesContainer = document.getElementById('shares-container');
+
+            shareForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('share-name').value;
+                const title = document.getElementById('share-title').value;
+                const content = document.getElementById('share-content').value;
+                
+                if (!name || !title || !content) {
+                    alert('请填写完整的感悟信息');
+                    return;
+                }
+                
+                const now = new Date();
+                const dateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                
+                const shareItem = document.createElement('div');
+                shareItem.className = 'share-item';
+                shareItem.innerHTML = `
+                    <h4 class="share-title">${title}</h4>
+                    <div class="share-meta">
+                        <span class="share-name">${name}</span>
+                        <span class="share-date">${dateString}</span>
+                    </div>
+                    <div class="share-content-text">${content}</div>
+                    <div class="share-actions">
+                        <button class="like-btn"><i class="far fa-heart"></i> <span>0</span></button>
+                        <button class="comment-btn"><i class="far fa-comment"></i> <span>0</span></button>
+                    </div>
+                `;
+                
+                sharesContainer.insertBefore(shareItem, sharesContainer.firstChild);
+                
+                // 添加点赞功能到新创建的元素
+                const likeBtn = shareItem.querySelector('.like-btn');
+                likeBtn.addEventListener('click', function() {
+                    const likeCount = this.querySelector('span');
+                    let count = parseInt(likeCount.textContent);
+                    count += 1;
+                    likeCount.textContent = count;
+                    this.querySelector('i').classList.remove('far');
+                    this.querySelector('i').classList.add('fas');
+                });
+                
+                shareForm.reset();
+                alert('感悟提交成功！');
+            });
+
+            // 为现有感悟添加点赞功能
+            const likeBtns = document.querySelectorAll('.like-btn');
+            likeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const likeCount = this.querySelector('span');
+                    let count = parseInt(likeCount.textContent);
+                    count += 1;
+                    likeCount.textContent = count;
+                    this.querySelector('i').classList.remove('far');
+                    this.querySelector('i').classList.add('fas');
+                });
+            });
+
+            const commentBtns = document.querySelectorAll('.comment-btn');
+            commentBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const commentInput = prompt('请输入您的评论：');
+                    if (commentInput) {
+                        const commentCount = this.querySelector('span');
+                        let count = parseInt(commentCount.textContent);
+                        count += 1;
+                        commentCount.textContent = count;
+                        alert('评论提交成功！');
+                    }
+                });
+            });
+
+            // 初始化
+            loadFlowerCount();
+        });
+    </script>
+</body>
+
+</html>

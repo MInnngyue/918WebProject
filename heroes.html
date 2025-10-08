@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄人物 - 九一八事变纪念网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* 英雄人物页面专属样式 */
+        
+        /* 英雄区域 - 震撼视觉 */
+        .heroes-hero {
+            position: relative;
+            height: 75vh;
+            min-height: 550px;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .heroes-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            filter: grayscale(100%);
+        }
+        
+        .heroes-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(139, 37, 0, 0.25), transparent 70%);
+        }
+        
+        .heroes-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+        
+        .heroes-hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            letter-spacing: 0.4em;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        
+        .heroes-hero-title {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .heroes-hero-quote {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #8B2500;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .heroes-hero-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .heroes-hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+        
+        .hero-stat-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-stat-item::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+        }
+        
+        .hero-stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #8B2500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-stat-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        /* 快速导航 */
+        .quick-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .quick-nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .quick-nav-list a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .quick-nav-list a:hover,
+        .quick-nav-list a.active {
+            background: #8B2500;
+            color: #fff;
+        }
+        
+        /* 章节标题 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            color: #8B2500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title-enhanced {
+            font-size: 2.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: #6a6a6a;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+            margin: 1.5rem auto;
+        }
+        
+        /* 英雄卡片网格 */
+        .heroes-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .hero-card-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .hero-card-enhanced:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-image-enhanced {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .hero-image-enhanced img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: all 0.4s;
+        }
+        
+        .hero-card-enhanced:hover .hero-image-enhanced img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+        
+        .hero-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+        }
+        
+        .hero-badge-enhanced {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 37, 0, 0.4);
+            z-index: 2;
+        }
+        
+        .hero-name-overlay {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            z-index: 2;
+        }
+        
+        .hero-name-overlay h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-info-enhanced {
+            padding: 2rem;
+        }
+        
+        .hero-meta-enhanced {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #6a6a6a;
+        }
+        
+        .hero-meta-enhanced span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .hero-meta-enhanced i {
+            color: #8B2500;
+        }
+        
+        .hero-position-enhanced {
+            font-size: 1rem;
+            color: #8B2500;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(139, 37, 0, 0.1);
+        }
+        
+        .hero-desc-enhanced {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-tags-enhanced {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-tags-enhanced .tag {
+            background: rgba(139, 37, 0, 0.08);
+            color: #8B2500;
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #8B2500;
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .read-more-btn:hover {
+            background: #6B1D00;
+            transform: translateX(5px);
+        }
+        
+        .read-more-btn i {
+            transition: transform 0.3s;
+        }
+        
+        .read-more-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 统计数据区域 */
+        .stats-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            padding: 5rem 0;
+            margin: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .stat-card-icon {
+            font-size: 3rem;
+            color: #8B2500;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .stat-card-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+        
+        /* 历史人物时间轴 */
+        .figures-timeline-enhanced {
+            max-width: 1000px;
+            margin: 3rem auto;
+            position: relative;
+        }
+        
+        .figure-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            transition: all 0.3s;
+        }
+        
+        .figure-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .figure-photo-enhanced {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .figure-photo-enhanced img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%);
+            transition: all 0.4s;
+        }
+        
+        .figure-card:hover .figure-photo-enhanced img {
+            transform: scale(1.05);
+            filter: grayscale(20%);
+        }
+        
+        .figure-label-enhanced {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: rgba(139, 37, 0, 0.9);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .figure-content-enhanced {
+            padding: 2.5rem;
+        }
+        
+        .figure-content-enhanced h3 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .figure-life {
+            color: #8B2500;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .figure-desc-enhanced {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .figure-keywords-enhanced {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .figure-keywords-enhanced span {
+            background: rgba(139, 37, 0, 0.08);
+            color: #8B2500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* 人物故事卡片 */
+        .stories-enhanced {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .story-card-enhanced {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .story-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .story-image-enhanced {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+        }
+        
+        .story-image-enhanced img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.4s;
+        }
+        
+        .story-card-enhanced:hover .story-image-enhanced img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+        
+        .story-tag-enhanced {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 37, 0, 0.4);
+        }
+        
+        .story-content-enhanced {
+            padding: 2.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .story-content-enhanced h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .story-excerpt-enhanced {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+            flex: 1;
+        }
+        
+        .story-link-enhanced {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+            background: linear-gradient(135deg, #8B2500, #A63100);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: fit-content;
+            box-shadow: 0 4px 15px rgba(139, 37, 0, 0.3);
+            cursor: pointer;
+        }
+        
+        .story-link-enhanced:hover {
+            background: linear-gradient(135deg, #6B1D00, #8B2500);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 37, 0, 0.5);
+        }
+        
+        .story-link-enhanced i {
+            transition: transform 0.3s;
+        }
+        
+        .story-link-enhanced:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 弹窗 */
+        .modal-enhanced {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content-enhanced {
+            position: relative;
+            background: #fff;
+            margin: 3% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: modalFadeIn 0.4s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-header-enhanced {
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            padding: 3rem;
+            color: #fff;
+            position: relative;
+        }
+        
+        .close-modal-enhanced {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-modal-enhanced:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        
+        .modal-hero-info {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .modal-hero-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-hero-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .modal-hero-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .modal-body-enhanced {
+            padding: 3rem;
+        }
+        
+        .modal-body-enhanced h3 {
+            font-size: 1.6rem;
+            color: #1a1a1a;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .modal-body-enhanced p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight-quote {
+            background: rgba(139, 37, 0, 0.05);
+            border-left: 4px solid #8B2500;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #2c2c2c;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .stories-enhanced {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .heroes-hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .heroes-hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .quick-nav-list {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .heroes-grid-enhanced {
+                grid-template-columns: 1fr;
+            }
+            
+            .figure-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .figure-photo-enhanced {
+                height: 300px;
+            }
+            
+            .stories-enhanced {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-image-enhanced {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变遇难同胞纪念站">
+                    <span class="site-title">九一八事变遇难同胞纪念站</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="history.html" class="nav-link">历史专题</a>
+                        <ul class="dropdown">
+                            <li><a href="history.html#background">时代背景</a></li>
+                            <li><a href="history.html#event-timeline">事件经过</a></li>
+                            <li><a href="history.html#key-points">关键节点</a></li>
+                            <li><a href="history.html#impact">历史影响</a></li>
+                            <li><a href="history.html#documents">历史文献</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="heroes.html" class="nav-link">英雄人物</a>
+                        <ul class="dropdown">
+                            <li><a href="#heroes">抗日英雄</a></li>
+                            <li><a href="#historical-figures">历史人物</a></li>
+                            <li><a href="#stories">人物故事</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link">资讯动态</a>
+                        <ul class="dropdown">
+                            <li><a href="news.html#featured">重要史实</a></li>
+                            <li><a href="news.html#latest-news">近期史实</a></li>
+                            <li><a href="news.html#memorial-activities">纪念活动</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="interaction.html" class="nav-link">互动参与</a>
+                        <ul class="dropdown">
+                            <li><a href="interaction.html#message-board">留言板</a></li>
+                            <li><a href="interaction.html#flower">在线献花</a></li>
+                            <li><a href="interaction.html#share">分享感悟</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form id="search-form">
+                    <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">
+                <a href="index.html" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="history.html" class="mobile-nav-link">历史专题</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="heroes.html" class="mobile-nav-link active">英雄人物</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="news.html" class="mobile-nav-link">资讯动态</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="interaction.html" class="mobile-nav-link">互动参与</a>
+            </li>
+            <li class="mobile-nav-item">
+                <form id="mobile-search-form">
+                    <input type="text" placeholder="搜索..." id="mobile-search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="heroes-hero">
+        <div class="heroes-hero-content">
+            <div class="heroes-hero-subtitle">HEROES OF THE RESISTANCE</div>
+            <h1 class="heroes-hero-title">英雄人物</h1>
+            <p class="heroes-hero-quote">"头可断，血可流，革命意志不可灭！"</p>
+            <p class="heroes-hero-description">
+                九一八事变后，无数英雄儿女前赴后继，用生命和鲜血书写了可歌可泣的抗日史诗。他们的精神永垂不朽，激励着一代又一代中华儿女。
+            </p>
+            <div class="heroes-hero-stats">
+                <div class="hero-stat-item">
+                    <span class="hero-stat-number">30万+</span>
+                    <span class="hero-stat-label">抗联战士</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-number">14年</span>
+                    <span class="hero-stat-label">浴血奋战</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-number">永远</span>
+                    <span class="hero-stat-label">铭记历史</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <nav class="quick-nav">
+        <div class="container">
+            <ul class="quick-nav-list">
+                <li><a href="#heroes" class="quick-nav-link">抗日英雄</a></li>
+                <li><a href="#historical-figures" class="quick-nav-link">历史人物</a></li>
+                <li><a href="#stories" class="quick-nav-link">人物故事</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 抗日英雄 -->
+    <section id="heroes" class="heroes-section" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">ANTI-JAPANESE HEROES</div>
+                <h2 class="section-title-enhanced">抗日英雄</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    九一八事变后，东北人民不甘做亡国奴，纷纷组织抗日义勇军和抗日联军，在极端艰苦的条件下坚持抗战。这些英雄用生命和鲜血书写了可歌可泣的抗日史诗，永远值得我们铭记和缅怀。
+                </p>
+            </div>
+
+            <div class="heroes-grid-enhanced">
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://q4.itc.cn/images01/20251006/f2e1a18de2d4406caeaa62d014cd74eb.jpeg"
+                            alt="杨靖宇">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">民族英雄</div>
+                        <div class="hero-name-overlay">
+                            <h3>杨靖宇</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1905-1940</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 河南确山</span>
+                        </div>
+                        <p class="hero-position-enhanced">东北抗日联军第一路军总司令兼政治委员</p>
+                        <p class="hero-desc-enhanced">在冰天雪地、弹尽粮绝的情况下，杨靖宇孤身一人与日伪军周旋战斗几昼夜后壮烈牺牲。敌人残忍地铡下他的头颅，剖开他的腹部，发现胃里尽是枯草、树皮和棉絮，竟无一粒粮食。</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">抗日联军</span>
+                            <span class="tag">民族英雄</span>
+                            <span class="tag">革命烈士</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="yangjingyu">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://q2.itc.cn/images01/20250906/93aeb25789f7404f9374c0a692eec2a1.jpeg"
+                            alt="赵尚志">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">抗日名将</div>
+                        <div class="hero-name-overlay">
+                            <h3>赵尚志</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1908-1942</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 辽宁朝阳</span>
+                        </div>
+                        <p class="hero-position-enhanced">东北抗日联军第三军军长</p>
+                        <p class="hero-desc-enhanced">赵尚志领导的抗日部队被日伪称为"小赵部队"，威震东北，与杨靖宇齐名，被日本侵略者悬赏金额最高。他率领部队长期转战松花江两岸，给日伪军以沉重打击。</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">抗日联军</span>
+                            <span class="tag">革命烈士</span>
+                            <span class="tag">抗战名将</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="zhaoshangzhi">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://pic.rmb.bdstatic.com/bjh/241007/dump/08d199ba30c8f134f77b5dc5a4c498b6.jpeg?x-bce-process=image/watermark,bucket_baidu-rmb-video-cover-1,image_YmpoL25ld3MvNjUzZjZkMjRlMDJiNjdjZWU1NzEzODg0MDNhYTQ0YzQucG5n,type_RlpMYW5UaW5nSGVpU01HQg==,w_22,text_QOiuuOWNv-WIsOeZveWktA==,size_22,x_17,y_17,interval_2,color_FFFFFF,effect_softoutline,shc_000000,blr_2,align_1"
+                            alt="马占山">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">抗日将领</div>
+                        <div class="hero-name-overlay">
+                            <h3>马占山</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1885-1950</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 吉林怀德</span>
+                        </div>
+                        <p class="hero-position-enhanced">黑龙江省代理主席兼军事总指挥</p>
+                        <p class="hero-desc-enhanced">九一八事变后，马占山在齐齐哈尔江桥抗战中打响了武装抗日第一枪，极大地鼓舞了全国人民的抗日斗志。他的英勇抗战被全国媒体广泛报道，成为抗日英雄。</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">江桥抗战</span>
+                            <span class="tag">抗日将领</span>
+                            <span class="tag">民族英雄</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="mazhanshan">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://q2.itc.cn/q_70/images03/20250912/3e6423803da248c1a6f65545559f1cc6.jpeg"
+                            alt="赵一曼">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">女中豪杰</div>
+                        <div class="hero-name-overlay">
+                            <h3>赵一曼</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1905-1936</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 四川宜宾</span>
+                        </div>
+                        <p class="hero-position-enhanced">东北抗日联军第三军第二团政治委员</p>
+                        <p class="hero-desc-enhanced">赵一曼在抗日斗争中被捕后，面对日本侵略者的酷刑，坚贞不屈，严守党的秘密。她在赴刑场前给儿子写下遗书："母亲不用千言万语来教育你，就用实际行动来教育你。"</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">抗日联军</span>
+                            <span class="tag">女英雄</span>
+                            <span class="tag">革命烈士</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="zhaoyiman">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://n.sinaimg.cn/spider20250916/545/w252h293/20250916/71fd-0ba523f2d9e005f6ced1792317ed058d.jpg"
+                            alt="李兆麟">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">抗日名将</div>
+                        <div class="hero-name-overlay">
+                            <h3>李兆麟</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1910-1946</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 辽宁辽阳</span>
+                        </div>
+                        <p class="hero-position-enhanced">东北抗日联军第三路军总指挥</p>
+                        <p class="hero-desc-enhanced">李兆麟参与创建了东北抗日联军，长期在极端艰苦的条件下坚持抗日游击战争。他创作的《露营之歌》成为东北抗联的军歌，激励着抗联战士英勇战斗。</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">抗日联军</span>
+                            <span class="tag">革命烈士</span>
+                            <span class="tag">抗战名将</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="lizhaolin">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-card-enhanced">
+                    <div class="hero-image-enhanced">
+                        <img src="https://pic.rmb.bdstatic.com/bjh/241122/beautify/52a302ec880e4a0760616e68c813f5c3.jpeg"
+                            alt="冯占海">
+                        <div class="hero-image-overlay"></div>
+                        <div class="hero-badge-enhanced">义勇军领袖</div>
+                        <div class="hero-name-overlay">
+                            <h3>冯占海</h3>
+                        </div>
+                    </div>
+                    <div class="hero-info-enhanced">
+                        <div class="hero-meta-enhanced">
+                            <span><i class="fas fa-calendar-alt"></i> 1899-1963</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 吉林德惠</span>
+                        </div>
+                        <p class="hero-position-enhanced">吉林抗日救国军总司令</p>
+                        <p class="hero-desc-enhanced">九一八事变后，冯占海率部起义，成立吉林抗日救国军，在吉林各地开展抗日游击战争。他的部队是东北义勇军中战斗力最强的队伍之一，给日伪军以沉重打击。</p>
+                        <div class="hero-tags-enhanced">
+                            <span class="tag">抗日义勇军</span>
+                            <span class="tag">抗日将领</span>
+                            <span class="tag">民族英雄</span>
+                        </div>
+                        <a href="#" class="read-more-btn" data-hero="fengzhanhai">
+                            了解详情 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计数据 -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label" style="color: rgba(255, 255, 255, 0.7);">STATISTICS</div>
+                <h2 class="section-title-enhanced" style="color: #fff;">英雄数据</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">
+                    用数字铭记英雄的不朽功勋
+                </p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-card-number">30万+</div>
+                    <div class="stat-card-label">抗联战士</div>
+                    <div class="stat-card-description">东北抗日联军总人数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-card-number">11个</div>
+                    <div class="stat-card-label">抗联军团</div>
+                    <div class="stat-card-description">东北抗日联军编制</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-fire-alt"></i></div>
+                    <div class="stat-card-number">14年</div>
+                    <div class="stat-card-label">艰苦抗战</div>
+                    <div class="stat-card-description">1931-1945年浴血奋战</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-medal"></i></div>
+                    <div class="stat-card-number">永垂不朽</div>
+                    <div class="stat-card-label">英雄精神</div>
+                    <div class="stat-card-description">激励世代中华儿女</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史人物 -->
+    <section id="historical-figures" class="historical-figures-section" style="padding: 5rem 0; background: #f5f5f5;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL FIGURES</div>
+                <h2 class="section-title-enhanced">历史人物</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    九一八事变涉及众多历史人物，他们在这段历史中扮演了不同的角色。了解这些人物的生平和事迹，有助于我们更全面地认识这段历史。
+                </p>
+            </div>
+
+            <div class="figures-timeline-enhanced">
+                <div class="figure-card">
+                    <div class="figure-photo-enhanced">
+                        <img src="https://jishi.cntv.cn/20111221/images/1324458088737_IMAG1253085314615476.jpg"
+                            alt="张学良">
+                        <div class="figure-label-enhanced">东北军领导人</div>
+                    </div>
+                    <div class="figure-content-enhanced">
+                        <h3>张学良</h3>
+                        <p class="figure-life"><i class="fas fa-calendar-alt"></i> 1901-2001</p>
+                        <p class="figure-desc-enhanced">九一八事变时任东北边防军司令长官。因执行蒋介石的"不抵抗政策"，导致东北迅速沦陷，背负"不抵抗将军"的骂名。后发动西安事变，促成国共合作抗日，成为民族英雄。张学良一生经历了从受人指责到被人尊敬的转变，他的爱国之心和民族大义永远值得铭记。</p>
+                        <div class="figure-keywords-enhanced">
+                            <span><i class="fas fa-tag"></i> 东北军</span>
+                            <span><i class="fas fa-tag"></i> 不抵抗政策</span>
+                            <span><i class="fas fa-tag"></i> 西安事变</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-photo-enhanced">
+                        <img src="https://q5.itc.cn/q_70/images01/20250207/a2b7cca9c3834badaf4a3eddbaf9ea50.jpeg"
+                            alt="溥仪">
+                        <div class="figure-label-enhanced">末代皇帝</div>
+                    </div>
+                    <div class="figure-content-enhanced">
+                        <h3>溥仪</h3>
+                        <p class="figure-life"><i class="fas fa-calendar-alt"></i> 1906-1967</p>
+                        <p class="figure-desc-enhanced">清朝末代皇帝，被日本扶持为伪满洲国"执政"和"皇帝"。在日本侵略者控制下，成为其统治东北的傀儡。溥仪一生充满悲剧色彩，从皇帝到平民，从傀儡到公民，他的经历见证了中国近代史的沧桑巨变。新中国成立后，经过改造成为普通公民。</p>
+                        <div class="figure-keywords-enhanced">
+                            <span><i class="fas fa-tag"></i> 末代皇帝</span>
+                            <span><i class="fas fa-tag"></i> 伪满洲国</span>
+                            <span><i class="fas fa-tag"></i> 傀儡政权</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="figure-card">
+                    <div class="figure-photo-enhanced">
+                        <img src="https://pic.rmb.bdstatic.com/d5107ab0a04b757dcb0db2060fe96268.jpeg@wm_2,t_55m+5a625Y+3L+mbtumbtumbtuivtOe7vOiJug==,fc_ffffff,ff_U2ltSGVp,sz_50,x_32,y_32"
+                            alt="本庄繁">
+                        <div class="figure-label-enhanced">日本侵略者</div>
+                    </div>
+                    <div class="figure-content-enhanced">
+                        <h3>本庄繁</h3>
+                        <p class="figure-life"><i class="fas fa-calendar-alt"></i> 1876-1945</p>
+                        <p class="figure-desc-enhanced">九一八事变时任关东军司令官。在其纵容和指挥下，关东军发动了九一八事变，侵占中国东北。本庄繁是九一八事变的主要策划者和执行者之一，对中国人民犯下了滔天罪行。战后因罪行被定为甲级战犯嫌疑人，自杀身亡，逃脱了应有的审判。</p>
+                        <div class="figure-keywords-enhanced">
+                            <span><i class="fas fa-tag"></i> 关东军司令</span>
+                            <span><i class="fas fa-tag"></i> 战争罪犯</span>
+                            <span><i class="fas fa-tag"></i> 九一八主谋</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 人物故事 -->
+    <section id="stories" class="stories-section" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HEROIC STORIES</div>
+                <h2 class="section-title-enhanced">人物故事</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    每一个英雄背后都有一段感人至深的故事，让我们走进他们的世界，感受那个年代的悲壮与豪迈
+                </p>
+            </div>
+
+            <div class="stories-enhanced">
+                <div class="story-card-enhanced">
+                    <div class="story-image-enhanced">
+                        <img src="https://q8.itc.cn/images01/20250718/718d98012cde4eb7b84225cca0650837.jpeg"
+                            alt="杨靖宇的最后时刻">
+                        <span class="story-tag-enhanced">英雄事迹</span>
+                    </div>
+                    <div class="story-content-enhanced">
+                        <h3>杨靖宇的最后时刻</h3>
+                        <p class="story-excerpt-enhanced">1940年2月，在零下40多度的严寒中，杨靖宇孤身一人与日伪军周旋战斗。在弹尽粮绝的情况下，他拒绝投降，壮烈牺牲。日军解剖他的遗体时，发现胃里竟无一粒粮食，只有枯草、树皮和棉絮...</p>
+                        <a href="#" class="story-link-enhanced" data-story="yangjingyu">
+                            阅读完整故事 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="story-card-enhanced">
+                    <div class="story-image-enhanced">
+                        <img src="https://n.sinaimg.cn/sinakd20230930s/564/w640h724/20230930/8f44-7f7d95341d1c5855ee17fa4da04ae9f9.jpg"
+                            alt="赵一曼给儿子的遗书">
+                        <span class="story-tag-enhanced">感人事迹</span>
+                    </div>
+                    <div class="story-content-enhanced">
+                        <h3>赵一曼给儿子的遗书</h3>
+                        <p class="story-excerpt-enhanced">"宁儿：母亲对于你没有能尽到教育的责任，实在是遗憾的事情。母亲因为坚决地做了反满抗日的斗争，今天已经到了牺牲的前夕了...在你长大成人之后，希望不要忘记你的母亲是为国而牺牲的！"</p>
+                        <a href="#" class="story-link-enhanced" data-story="zhaoyiman">
+                            阅读完整故事 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="story-card-enhanced">
+                    <div class="story-image-enhanced">
+                        <img src="https://gips3.baidu.com/it/u=760998274,2986528509&fm=3074&app=3074&f=JPEG?w=2148&h=1644&type=normal&func=T"
+                            alt="马占山江桥抗战">
+                        <span class="story-tag-enhanced">抗战事迹</span>
+                    </div>
+                    <div class="story-content-enhanced">
+                        <h3>马占山江桥抗战</h3>
+                        <p class="story-excerpt-enhanced">1931年11月，马占山率部在齐齐哈尔江桥与日军激战，打响了中国军队武装抗日第一枪。虽然最终失利，但极大地鼓舞了全国人民的抗日斗志。马占山将军的英勇抗战，成为九一八事变后中国军队抵抗日本侵略的光辉典范。</p>
+                        <a href="#" class="story-link-enhanced" data-story="mazhanshan">
+                            阅读完整故事 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 英雄详情弹窗 -->
+    <div id="hero-modal" class="modal-enhanced">
+        <div class="modal-content-enhanced">
+            <div class="modal-header-enhanced">
+                <div class="modal-hero-info">
+                    <div class="modal-hero-avatar">
+                        <img id="modal-hero-avatar" src="" alt="">
+                    </div>
+                    <div class="modal-hero-details">
+                        <h2 id="modal-hero-name"></h2>
+                        <div class="modal-hero-meta">
+                            <span id="modal-hero-years"></span>
+                            <span id="modal-hero-birthplace"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class="close-modal-enhanced">&times;</span>
+            </div>
+            <div class="modal-body-enhanced" id="modal-hero-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息栏 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变纪念网站">
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="history.html">历史专题</a></li>
+                        <li><a href="heroes.html">英雄人物</a></li>
+                        <li><a href="news.html">资讯动态</a></li>
+                        <li><a href="interaction.html">互动参与</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@918memorial.org</li>
+                        <li><i class="fas fa-phone"></i> 010-12345678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村南大街5号</li>
+                    </ul>
+                </div>
+                <div class="footer-about">
+                    <h4>关于我们</h4>
+                    <p>九一八事变纪念网站致力于铭记历史、缅怀先烈、珍爱和平、开创未来，弘扬爱国主义精神，促进历史教育和和平理念的传播。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 九一八事变纪念网站 版权所有</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 英雄详细信息数据
+        const heroesData = {
+            yangjingyu: {
+                name: "杨靖宇",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D",
+                years: "1905-1940",
+                birthplace: "河南确山",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>杨靖宇，原名马尚德，1905年2月26日出生于河南省确山县。1926年加入中国共产主义青年团，1927年转为中国共产党党员。</p>
+                    <p>1929年春，杨靖宇受党组织派遣到东北从事抗日工作。九一八事变后，他组织领导了抗日义勇军，后改编为东北抗日联军第一路军，任总司令兼政治委员。</p>
+                    
+                    <h3>英雄事迹</h3>
+                    <p>杨靖宇率领东北抗日联军在白山黑水间与日寇血战，给敌人以沉重打击。在极端艰苦的条件下，他坚持抗日斗争长达14年之久。</p>
+                    <div class="highlight-quote">
+                        "我们中国人都投降了，还有中国吗？"——杨靖宇
+                    </div>
+                    <p>1940年2月23日，在吉林蒙江县（今靖宇县）保安村附近，杨靖宇在被叛徒出卖的情况下，孤身一人与数百名日伪军激战，壮烈牺牲，年仅35岁。</p>
+                    
+                    <h3>最后时刻</h3>
+                    <p>在生命的最后几天，杨靖宇已经断粮多日。在零下40多度的严寒中，他靠着棉絮、树皮和雪支撑着生命。日军劝降时，他说："我们中国人都投降了，还有中国吗？"</p>
+                    <p>日军在解剖杨靖宇的遗体时，发现他的胃里没有一粒粮食，只有未能消化的草根、树皮和棉絮。在场的日本军医都为之震惊，感叹："中国竟有如此坚强的人！"</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>杨靖宇是中国共产党优秀党员、伟大的抗日民族英雄、东北抗日联军的主要领导人之一。他的英勇事迹和崇高精神，永远激励着中华民族。</p>
+                    <p>为纪念杨靖宇，蒙江县改名为靖宇县。在靖宇县建有杨靖宇将军殉国地和杨靖宇烈士陵园。</p>
+                `
+            },
+            zhaoshangzhi: {
+                name: "赵尚志",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/acee063f406596e7b12201f78611a7cb~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=9610MYv822IDGO6yGq9IPF1ku40%3D",
+                years: "1908-1942",
+                birthplace: "辽宁朝阳",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>赵尚志，1908年10月26日出生于辽宁省朝阳县。1925年加入中国共产党，是东北抗日联军的主要创建者和领导人之一。</p>
+                    <p>九一八事变后，赵尚志组织抗日武装，先后任东北抗日联军第三军军长、北满抗联总司令等职。他率领的抗日部队被日伪称为"小赵部队"，威震东北。</p>
+                    
+                    <h3>英雄事迹</h3>
+                    <p>赵尚志率领抗联战士长期转战于松花江两岸，进行了无数次战斗。他指挥灵活，作战勇敢，多次重创日伪军。日本侵略者对他恨之入骨，悬赏金额高达10万元，与杨靖宇齐名。</p>
+                    <div class="highlight-quote">
+                        "宁做抗日将，不当亡国奴！"——赵尚志
+                    </div>
+                    
+                    <h3>壮烈牺牲</h3>
+                    <p>1942年2月12日，赵尚志在袭击敌人据点时，被混入队伍的敌特开枪打伤。由于伤势过重，他于当日牺牲，年仅34岁。</p>
+                    <p>日军残忍地割下了赵尚志的头颅，送到伪满洲国首都新京（今长春）邀功请赏。赵尚志的躯体则被埋在了梧桐河畔。直到2004年，人们才找到了烈士的头颅，使他在身首异处62年后终于得以完整安葬。</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>赵尚志是东北抗日联军的主要领导人之一，是中国共产党优秀党员，伟大的抗日民族英雄。他的英勇事迹永远激励着后人。</p>
+                `
+            },
+            mazhanshan: {
+                name: "马占山",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/d7eae2cf08cc338df94c6dc825e31086~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=CGg%2BAELJ53U367zgDyUva3PsheY%3D",
+                years: "1885-1950",
+                birthplace: "吉林怀德",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>马占山，1885年11月30日出生于吉林省怀德县（今公主岭市）。九一八事变时任黑龙江省政府代理主席兼军事总指挥。</p>
+                    
+                    <h3>江桥抗战</h3>
+                    <p>1931年11月4日，日军进攻黑龙江省，企图占领齐齐哈尔。马占山率部在嫩江大桥（江桥）与日军激战，打响了中国军队武装抗日第一枪。</p>
+                    <div class="highlight-quote">
+                        "余身为中华民族子孙，首当其冲，寸土不让，与日寇血战到底！"——马占山
+                    </div>
+                    <p>江桥抗战历时半个多月，虽然最终因实力悬殊失利，但极大地鼓舞了全国人民的抗日斗志。马占山的名字传遍全国，成为抗日英雄。</p>
+                    
+                    <h3>继续抗战</h3>
+                    <p>1932年初，马占山在被迫投降日军后不久，便举行反正起义，重新投入抗日斗争。他组织了东北抗日救国军，继续与日军作战。</p>
+                    <p>全面抗战爆发后，马占山担任东北挺进军总司令，率部在绥远、陕西等地抗击日军。新中国成立后，马占山任国防委员会委员等职。</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>马占山将军的江桥抗战，打响了中国军队武装抗日第一枪，极大地鼓舞了全国人民的抗日斗志，是九一八事变后中国军队抵抗日本侵略的光辉典范。</p>
+                `
+            },
+            zhaoyiman: {
+                name: "赵一曼",
+                avatar: "https://p3-doubao-search-sign.byteimg.com/pgc-image/SjKnXKM4BF6d6P~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=pLtyUjy1uWEy0eP7iz6AqmdfXUQ%3D",
+                years: "1905-1936",
+                birthplace: "四川宜宾",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>赵一曼，原名李坤泰，1905年10月出生于四川省宜宾县。1926年加入中国共产党，1931年被派往东北从事抗日工作。</p>
+                    <p>赵一曼先后在东北各地领导工人运动和抗日斗争，1935年担任东北抗日联军第三军第二团政治委员。</p>
+                    
+                    <h3>英勇就义</h3>
+                    <p>1935年11月，赵一曼在与日军作战中负伤被俘。在狱中，她遭受了日本侵略者的种种酷刑，但始终坚贞不屈，严守党的秘密。</p>
+                    <div class="highlight-quote">
+                        "母亲不用千言万语来教育你，就用实际行动来教育你。"——赵一曼
+                    </div>
+                    
+                    <h3>给儿子的遗书</h3>
+                    <p>1936年8月2日，赵一曼在被押往刑场的火车上，给儿子写下了最后的遗书：</p>
+                    <p>"宁儿：母亲对于你没有能尽到教育的责任，实在是遗憾的事情。母亲因为坚决地做了反满抗日的斗争，今天已经到了牺牲的前夕了...在你长大成人之后，希望不要忘记你的母亲是为国而牺牲的！"</p>
+                    <p>当天，赵一曼在珠河县（今尚志市）英勇就义，年仅31岁。</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>赵一曼是中国共产党优秀党员，伟大的抗日民族英雄。她的事迹感动了无数人，成为中华民族抗日斗争史上的光辉典范。</p>
+                    <p>为纪念赵一曼，珠河县改名为尚志县（现为尚志市），并建有赵一曼纪念馆。</p>
+                `
+            },
+            lizhaolin: {
+                name: "李兆麟",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/495b0ec11ff79f5a804939ced047645d~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=BwSqkzk4djjCmwUyMq7rFgcszYE%3D",
+                years: "1910-1946",
+                birthplace: "辽宁辽阳",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>李兆麟，原名李超兰，1910年11月2日出生于辽宁省辽阳县。1931年加入中国共产党，是东北抗日联军的主要创建者和领导人之一。</p>
+                    
+                    <h3>抗日斗争</h3>
+                    <p>九一八事变后，李兆麟积极投身抗日救亡运动。他参与创建了东北抗日联军，先后担任第三军政治部主任、第六军政治部主任、第三路军总指挥等职。</p>
+                    <p>李兆麟率领抗联战士在极端艰苦的条件下坚持抗日游击战争，长期转战于松花江两岸，给日伪军以沉重打击。</p>
+                    
+                    <h3>《露营之歌》</h3>
+                    <p>1936年，李兆麟创作了著名的《露营之歌》，成为东北抗联的军歌：</p>
+                    <div class="highlight-quote">
+                        "铁岭绝岩，林木丛生，暴雨狂风，荒原水畔战马鸣。围火齐团结，普照满天红。同志们！锐志哪怕松江晚浪生！起来哟！果敢冲锋！逐日寇，复东北，天破晓，光华万丈涌！"
+                    </div>
+                    
+                    <h3>光荣牺牲</h3>
+                    <p>抗战胜利后，李兆麟积极投身民主运动。1946年3月9日，李兆麟在哈尔滨被国民党特务暗杀，壮烈牺牲，年仅36岁。</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>李兆麟是东北抗日联军的主要创建者和领导人之一，是中国共产党优秀党员，伟大的抗日民族英雄。他的《露营之歌》永远激励着后人。</p>
+                `
+            },
+            fengzhanhai: {
+                name: "冯占海",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/1dd13e0b3e064eb18cf520232e93a235~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=EAyVpoF2LtgNFnBSPPbZWaBJij8%3D",
+                years: "1899-1963",
+                birthplace: "吉林德惠",
+                content: `
+                    <h3>生平简介</h3>
+                    <p>冯占海，1899年出生于吉林省德惠县。九一八事变前任吉林省警备司令部参谋长。</p>
+                    
+                    <h3>起义抗日</h3>
+                    <p>九一八事变后，冯占海拒绝执行"不抵抗"命令，率部起义，成立吉林抗日救国军，任总司令。他的部队是东北义勇军中战斗力最强的队伍之一。</p>
+                    <div class="highlight-quote">
+                        "宁为战死鬼，不做亡国奴！"——冯占海
+                    </div>
+                    
+                    <h3>英勇抗战</h3>
+                    <p>冯占海率领吉林抗日救国军在吉林各地开展抗日游击战争，多次重创日伪军。他的部队纪律严明，深得群众拥护。</p>
+                    <p>1932年，在日军的重兵围剿下，冯占海率部突围进入关内，继续从事抗日活动。</p>
+                    
+                    <h3>继续革命</h3>
+                    <p>抗战期间，冯占海先后担任军事委员会委员、东北挺进军副总司令等职。抗战胜利后，他积极支持人民解放战争。</p>
+                    <p>新中国成立后，冯占海任国防委员会委员、民革中央委员等职。1963年在北京病逝。</p>
+                    
+                    <h3>历史评价</h3>
+                    <p>冯占海是著名的抗日爱国将领，他率领的吉林抗日救国军是东北义勇军的重要组成部分，为抗日战争的胜利作出了重要贡献。</p>
+                `
+            }
+        };
+
+        // 故事数据
+        const storiesData = {
+            yangjingyu: {
+                name: "杨靖宇的最后时刻",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/ed38f0a707934c4829f9a12bfd763c9f~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=yCdrkW4mV94PmSuhcsWaF%2FdHGfI%3D",
+                years: "1940年2月",
+                birthplace: "吉林蒙江县（今靖宇县）",
+                content: `
+                    <h3>背景</h3>
+                    <p>1940年初，东北抗日联军在日军大规模"讨伐"下陷入了最困难的时期。杨靖宇率领的抗联第一路军在长白山区与敌人周旋，处境极为艰难。</p>
+                    
+                    <h3>最后的战斗</h3>
+                    <p>1940年2月，在零下40多度的严寒中，杨靖宇已经断粮多日。他孤身一人与数百名日伪军周旋战斗了五天五夜。</p>
+                    <p>在生命的最后时刻，杨靖宇已经多日没有进食。他靠着棉絮、树皮和雪支撑着生命，依然拒绝投降，与敌人战斗到最后一刻。</p>
+                    <div class="highlight-quote">
+                        "我们中国人都投降了，还有中国吗？"——杨靖宇
+                    </div>
+                    
+                    <h3>英勇牺牲</h3>
+                    <p>1940年2月23日，在弹尽粮绝的情况下，杨靖宇在吉林蒙江县（今靖宇县）保安村附近壮烈牺牲，年仅35岁。</p>
+                    <p>日军在解剖杨靖宇的遗体时震惊地发现，他的胃里没有一粒粮食，只有未能消化的草根、树皮和棉絮。在场的日本军医都被深深震撼，感叹："中国竟有如此坚强的人！"</p>
+                    
+                    <h3>精神永存</h3>
+                    <p>杨靖宇将军以他的生命诠释了什么叫做坚贞不屈，什么叫做民族气节。他的英雄事迹永远激励着后人，成为中华民族抗日斗争史上的光辉典范。</p>
+                    <p>为纪念这位伟大的抗日英雄，蒙江县改名为靖宇县，并建有杨靖宇烈士陵园和纪念馆。</p>
+                `
+            },
+            zhaoyiman: {
+                name: "赵一曼给儿子的遗书",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/b948763c691a936f48f1bdc74ac191bc~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=I4Xr5oZnopWX5jQczOVIaxDg4yA%3D",
+                years: "1936年8月",
+                birthplace: "黑龙江珠河县（今尚志市）",
+                content: `
+                    <h3>被捕经过</h3>
+                    <p>1935年11月，赵一曼在与日军作战中负伤被俘。在狱中，她遭受了日本侵略者的种种酷刑，包括电刑、灌辣椒水、竹签穿指等，但她始终坚贞不屈，严守党的秘密。</p>
+                    
+                    <h3>最后的遗书</h3>
+                    <p>1936年8月2日，赵一曼在被押往刑场的火车上，用颤抖的手给年仅3岁的儿子宁儿写下了最后的遗书：</p>
+                    <div class="highlight-quote">
+                        "宁儿：<br><br>
+                        母亲对于你没有能尽到教育的责任，实在是遗憾的事情。母亲因为坚决地做了反满抗日的斗争，今天已经到了牺牲的前夕了。<br><br>
+                        母亲和你在生前是永久没有再见的机会了。希望你，宁儿啊！赶快成人，来安慰你地下的母亲！我最亲爱的孩子啊！母亲不用千言万语来教育你，就用实际行动来教育你。<br><br>
+                        在你长大成人之后，希望不要忘记你的母亲是为国而牺牲的！<br><br>
+                        一九三六年八月二日，你的母亲赵一曼于车中"
+                    </div>
+                    
+                    <h3>英勇就义</h3>
+                    <p>写完这封遗书后不久，赵一曼在珠河县（今尚志市）英勇就义，年仅31岁。她用自己的生命实践了对党和人民的忠诚。</p>
+                    
+                    <h3>永远的思念</h3>
+                    <p>赵一曼的儿子陈掖贤（宁儿）直到21岁才知道母亲已经牺牲。当他读到母亲的遗书时，泪流满面。他后来说："母亲用她的生命教育了我。"</p>
+                    <p>为纪念赵一曼，珠河县改名为尚志县（现为尚志市），并建有赵一曼纪念馆。这封字字泣血的遗书，成为中华民族抗日斗争史上最感人的篇章之一。</p>
+                `
+            },
+            mazhanshan: {
+                name: "马占山江桥抗战",
+                avatar: "https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D",
+                years: "1931年11月",
+                birthplace: "黑龙江齐齐哈尔",
+                content: `
+                    <h3>事变背景</h3>
+                    <p>九一八事变后，日本关东军迅速占领辽宁、吉林，并开始向黑龙江进犯。1931年10月，张学良任命马占山为黑龙江省代理主席兼军事总指挥。</p>
+                    
+                    <h3>江桥决战</h3>
+                    <p>1931年11月4日，日军向嫩江铁路桥（江桥）发起进攻。马占山将军毅然决定抵抗，率领黑龙江省军队在江桥与日军展开激战。</p>
+                    <p>这是九一八事变后，中国军队第一次有组织的大规模抗日战斗。马占山将军亲临前线指挥，与日军激战三天三夜。</p>
+                    <div class="highlight-quote">
+                        "我是中国人，我有我的职责。宁做亡国奴，不做卖国贼！"——马占山
+                    </div>
+                    
+                    <h3>全国震动</h3>
+                    <p>江桥抗战虽然最终因力量悬殊而失利，但极大地鼓舞了全国人民的抗日斗志。全国各地纷纷举行游行示威，声援马占山将军的抗日行动。</p>
+                    <p>江桥抗战打响了中国军队武装抗日的第一枪，马占山将军也因此成为全国闻名的抗日英雄。</p>
+                    
+                    <h3>继续抗战</h3>
+                    <p>1932年初，马占山在被迫投降日军后不久，便举行反正起义，重新投入抗日斗争。他组织了东北抗日救国军，继续与日军作战。</p>
+                    <p>全面抗战爆发后，马占山担任东北挺进军总司令，率部在绥远、陕西等地抗击日军。他一直战斗到抗战胜利。</p>
+                    
+                    <h3>历史意义</h3>
+                    <p>马占山将军的江桥抗战，是九一八事变后中国军队抵抗日本侵略的光辉典范。它向全世界表明了中国人民抗击侵略、保家卫国的坚强决心，在中国抗日战争史上写下了光辉的一页。</p>
+                `
+            }
+        };
+
+        // DOM加载完成后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('hero-modal');
+            const closeModal = document.querySelector('.close-modal-enhanced');
+            const readMoreBtns = document.querySelectorAll('.read-more-btn');
+            const storyLinks = document.querySelectorAll('.story-link-enhanced');
+
+            // 打开英雄详情弹窗
+            readMoreBtns.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const heroId = this.getAttribute('data-hero');
+                    const hero = heroesData[heroId];
+
+                    if (hero) {
+                        document.getElementById('modal-hero-avatar').src = hero.avatar;
+                        document.getElementById('modal-hero-name').textContent = hero.name;
+                        document.getElementById('modal-hero-years').innerHTML = '<i class="fas fa-calendar-alt"></i> ' + hero.years;
+                        document.getElementById('modal-hero-birthplace').innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + hero.birthplace;
+                        document.getElementById('modal-hero-content').innerHTML = hero.content;
+
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // 打开故事详情弹窗
+            storyLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const storyId = this.getAttribute('data-story');
+                    const story = storiesData[storyId];
+
+                    if (story) {
+                        document.getElementById('modal-hero-avatar').src = story.avatar;
+                        document.getElementById('modal-hero-name').textContent = story.name;
+                        document.getElementById('modal-hero-years').innerHTML = '<i class="fas fa-calendar-alt"></i> ' + story.years;
+                        document.getElementById('modal-hero-birthplace').innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + story.birthplace;
+                        document.getElementById('modal-hero-content').innerHTML = story.content;
+
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // 关闭弹窗
+            closeModal.addEventListener('click', function () {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+
+            // 点击弹窗外部关闭
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // 快速导航高亮
+            const quickNavLinks = document.querySelectorAll('.quick-nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', function () {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                quickNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 平滑滚动
+            quickNavLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史专题 - 九一八事变纪念网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/script.js" defer></script>
+    <style>
+        /* 历史专题页面专属样式 */
+        
+        /* 英雄区域 - 页面顶部震撼视觉 */
+        .history-hero {
+            position: relative;
+            height: 75vh;
+            min-height: 550px;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f35 50%, #2c1810 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .history-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://p3-doubao-search-sign.byteimg.com/pgc-image/a5426f2633e849febb1c71a2a8cfd179~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=bhkIzhmY%2BEoAKF8Spa1Vr1hmdNQ%3D');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            filter: grayscale(100%);
+        }
+        
+        .history-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(139, 37, 0, 0.25), transparent 70%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-date {
+            font-size: 2rem;
+            color: #8B2500;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .hero-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #8B2500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #8B2500;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        /* 导航锚点 */
+        .quick-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        
+        .quick-nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .quick-nav-list a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .quick-nav-list a:hover,
+        .quick-nav-list a.active {
+            background: #8B2500;
+            color: #fff;
+        }
+        
+        /* 章节标题增强 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 0.9rem;
+            color: #8B2500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .section-title-enhanced {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6a6a6a;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .section-divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #8B2500, transparent);
+            margin: 1.5rem auto;
+        }
+        
+        /* 背景内容卡片 */
+        .background-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .background-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .background-text h3 {
+            color: #8B2500;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .background-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 1.2rem;
+        }
+        
+        .highlight-box {
+            background: rgba(139, 37, 0, 0.05);
+            border-left: 4px solid #8B2500;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: #2c2c2c;
+        }
+        
+        .background-image-enhanced {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .background-image-enhanced img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(30%);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1.5rem;
+            color: #fff;
+        }
+        
+        /* 时间轴现代化设计 */
+        .timeline-modern {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline-modern::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #8B2500, rgba(139, 37, 0, 0.3));
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item-modern {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .timeline-item-modern:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item-modern:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-date-modern {
+            flex: 0 0 45%;
+            text-align: right;
+            padding-right: 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #8B2500;
+        }
+        
+        .timeline-item-modern:nth-child(even) .timeline-date-modern {
+            text-align: left;
+            padding-left: 3rem;
+            padding-right: 0;
+        }
+        
+        .timeline-marker {
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            background: #8B2500;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px rgba(139, 37, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-content-modern {
+            flex: 0 0 45%;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-left: 3rem;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .timeline-item-modern:nth-child(even) .timeline-content-modern {
+            margin-left: 0;
+            margin-right: 3rem;
+        }
+        
+        .timeline-content-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .timeline-content-modern h3 {
+            color: #1a1a1a;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .timeline-content-modern p {
+            color: #4a4a4a;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 1rem;
+            filter: grayscale(20%);
+        }
+        
+        /* 关键节点卡片增强 */
+        .key-points-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .key-point-card-enhanced {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .key-point-card-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #8B2500, #A63100);
+        }
+        
+        .key-point-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .key-point-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(139, 37, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: #8B2500;
+        }
+        
+        .key-point-card-enhanced h3 {
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .key-point-card-enhanced p {
+            color: #4a4a4a;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .key-point-meta-enhanced {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .key-point-meta-enhanced span {
+            padding: 0.4rem 1rem;
+            background: rgba(139, 37, 0, 0.1);
+            border-radius: 20px;
+            color: #8B2500;
+            font-weight: 500;
+        }
+        
+        /* 数据可视化区域 */
+        .stats-section {
+            background: linear-gradient(135deg, #1a1f35 0%, #2c1810 100%);
+            padding: 5rem 0;
+            margin: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .stat-card-icon {
+            font-size: 3rem;
+            color: #8B2500;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .stat-card-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+        
+        /* 历史文献现代化设计 */
+        .documents-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .document-card-enhanced {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .document-card-enhanced:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .document-header {
+            background: linear-gradient(135deg, #1a1f35 0%, #2c1810 100%);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 37, 0, 0.3), transparent 70%);
+        }
+        
+        .document-icon {
+            font-size: 3rem;
+            color: #8B2500;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .document-card-enhanced h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+        }
+        
+        .document-meta-enhanced {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .document-meta-enhanced span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .document-body {
+            padding: 2rem;
+        }
+        
+        .document-body p {
+            color: #4a4a4a;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .document-excerpt {
+            background: rgba(139, 37, 0, 0.05);
+            padding: 1rem;
+            border-left: 3px solid #8B2500;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: #2c2c2c;
+        }
+        
+        .view-document-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #8B2500;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .view-document-btn:hover {
+            background: #6B1D00;
+            transform: translateX(5px);
+        }
+        
+        .view-document-btn i {
+            transition: transform 0.3s;
+        }
+        
+        .view-document-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 弹窗增强 */
+        .modal-enhanced {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content-enhanced {
+            position: relative;
+            background: #fff;
+            margin: 3% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1a1f35 0%, #2c1810 100%);
+            padding: 2.5rem;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .close-modal-enhanced {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-modal-enhanced:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        
+        .modal-title-enhanced {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .modal-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        
+        .modal-body {
+            padding: 3rem;
+        }
+        
+        .modal-body p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-body p:first-line {
+            font-weight: 600;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .quick-nav-list {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .background-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-modern::before {
+                left: 30px;
+            }
+            
+            .timeline-item-modern,
+            .timeline-item-modern:nth-child(even) {
+                flex-direction: row;
+            }
+            
+            .timeline-date-modern {
+                flex: 0 0 auto;
+                text-align: left;
+                padding-left: 80px;
+                padding-right: 0;
+                font-size: 0.9rem;
+            }
+            
+            .timeline-marker {
+                position: absolute;
+                left: 20px;
+            }
+            
+            .timeline-content-modern,
+            .timeline-item-modern:nth-child(even) .timeline-content-modern {
+                margin-left: 80px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变遇难同胞纪念站">
+                    <span class="site-title">九一八事变遇难同胞纪念站</span>
+                </a>
+            </div>
+            <nav class="nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">首页</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="history.html" class="nav-link">历史专题</a>
+                        <ul class="dropdown">
+                            <li><a href="#background">时代背景</a></li>
+                            <li><a href="#event-timeline">事件经过</a></li>
+                            <li><a href="#key-points">关键节点</a></li>
+                            <li><a href="#impact">历史影响</a></li>
+                            <li><a href="#documents">历史文献</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="heroes.html" class="nav-link">英雄人物</a>
+                        <ul class="dropdown">
+                            <li><a href="heroes.html#heroes">抗日英雄</a></li>
+                            <li><a href="heroes.html#historical-figures">历史人物</a></li>
+                            <li><a href="heroes.html#stories">人物故事</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="news.html" class="nav-link">资讯动态</a>
+                        <ul class="dropdown">
+                            <li><a href="news.html#featured">重要史实</a></li>
+                            <li><a href="news.html#latest-news">近期史实</a></li>
+                            <li><a href="news.html#memorial-activities">纪念活动</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="interaction.html" class="nav-link">互动参与</a>
+                        <ul class="dropdown">
+                            <li><a href="interaction.html#message-board">留言板</a></li>
+                            <li><a href="interaction.html#flower">在线献花</a></li>
+                            <li><a href="interaction.html#share">分享感悟</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <form id="search-form">
+                    <input type="text" placeholder="搜索历史文章、活动、留言..." id="search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li class="mobile-nav-item">
+                <a href="index.html" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="history.html" class="mobile-nav-link active">历史专题</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="heroes.html" class="mobile-nav-link">英雄人物</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="news.html" class="mobile-nav-link">资讯动态</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="interaction.html" class="mobile-nav-link">互动参与</a>
+            </li>
+            <li class="mobile-nav-item">
+                <form id="mobile-search-form">
+                    <input type="text" placeholder="搜索..." id="mobile-search-input">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 英雄区域 -->
+    <section class="history-hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">HISTORY SPECIAL</div>
+            <h1 class="hero-title">九一八事变</h1>
+            <div class="hero-date">1931.9.18</div>
+            <p class="hero-description">
+                铭记历史，勿忘国耻。九一八事变是日本帝国主义侵华战争的开端，标志着中国人民14年抗日战争的起点，也是世界反法西斯战争的序幕。
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">年抗日战争</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3000万+</span>
+                    <span class="stat-label">东北同胞受难</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">128天</span>
+                    <span class="stat-label">东北全境沦陷</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- 快速导航 -->
+    <nav class="quick-nav">
+        <div class="container">
+            <ul class="quick-nav-list">
+                <li><a href="#background" class="quick-nav-link">时代背景</a></li>
+                <li><a href="#event-timeline" class="quick-nav-link">事件经过</a></li>
+                <li><a href="#key-points" class="quick-nav-link">关键节点</a></li>
+                <li><a href="#impact" class="quick-nav-link">历史影响</a></li>
+                <li><a href="#documents" class="quick-nav-link">历史文献</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 时代背景 -->
+    <section id="background" class="history-section" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL BACKGROUND</div>
+                <h2 class="section-title-enhanced">时代背景</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    20世纪30年代，世界资本主义经济危机爆发，日本帝国主义加紧了对中国的侵略步伐
+                </p>
+            </div>
+
+            <div class="background-card">
+                <div class="background-grid">
+                    <div class="background-text">
+                        <h3><i class="fas fa-globe-asia"></i> 国际形势</h3>
+                        <p>1929年至1933年，资本主义世界爆发了空前严重的经济危机。日本作为一个资源匮乏、市场狭小的岛国，受到经济危机的打击尤为严重。</p>
+                        <div class="highlight-box">
+                            <p>💡 1931年，日本的工业产值比1929年下降了32.5%，对外贸易额下降了40%，失业人数超过300万人。</p>
+                        </div>
+                        <p>英、法等西方国家正忙于应对国内的经济危机，无暇东顾。美国则奉行"中立主义"政策，对日本的侵略行为采取了绥靖态度。苏联虽然对日本的侵略行为表示反对，但由于国内正在进行大规模的社会主义建设，也不愿与日本发生直接冲突。</p>
+                    </div>
+                    <div class="background-image-enhanced">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/pgc-image/a5426f2633e849febb1c71a2a8cfd179~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=bhkIzhmY%2BEoAKF8Spa1Vr1hmdNQ%3D"
+                            alt="九一八事变历史照片">
+                        <div class="image-overlay">
+                            <p>九一八事变历史照片</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="background-card">
+                <div class="background-grid" style="grid-template-columns: 1fr 1.5fr;">
+                    <div class="background-image-enhanced">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/d7eae2cf08cc338df94c6dc825e31086~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=CGg%2BAELJ53U367zgDyUva3PsheY%3D"
+                            alt="日本关东军">
+                        <div class="image-overlay">
+                            <p>日本关东军</p>
+                        </div>
+                    </div>
+                    <div class="background-text">
+                        <h3><i class="fas fa-chess-knight"></i> 日本军国主义抬头</h3>
+                        <p>日本对中国东北的觊觎由来已久。甲午战争后，日本强迫清政府签订《马关条约》，割占台湾和澎湖列岛，并取得了在东北的诸多特权。日俄战争后，日本取代俄国获得了在中国东北的支配地位。</p>
+                        <div class="highlight-box">
+                            <p>💡 1930年，日本在东北的投资达到17.5亿日元，占外国在东北投资总额的73%。</p>
+                        </div>
+                        <p>1927年，日本首相田中义一主持召开了"东方会议"，制定了《对华政策纲要》，明确提出了"满蒙分离"的政策，企图将中国东北从中国分裂出去，建立一个由日本控制的傀儡政权。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="background-card">
+                <div class="background-text">
+                    <h3><i class="fas fa-exclamation-triangle"></i> 中国内忧外患</h3>
+                    <p>20世纪30年代，中国正处于内战时期，国民党政府忙于"剿共"，对日本的侵略行为采取了妥协退让的政策。</p>
+                    <div class="highlight-box">
+                        <p>💡 1931年7月，蒋介石发表了《告全国同胞书》，提出了"攘外必先安内"的政策，这实际上是对日本侵略行为的默许。</p>
+                    </div>
+                    <p>在内外因素的共同作用下，日本帝国主义终于发动了九一八事变，开始了对中国的全面侵略战争。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据可视化 -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label" style="color: rgba(255, 255, 255, 0.7);">STATISTICS</div>
+                <h2 class="section-title-enhanced" style="color: #fff;">历史数据</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">
+                    用数字铭记历史的伤痕
+                </p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-card-number">128天</div>
+                    <div class="stat-card-label">东北全境沦陷</div>
+                    <div class="stat-card-description">从1931年9月18日至1932年2月5日</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-card-number">3000万+</div>
+                    <div class="stat-card-label">东北同胞受难</div>
+                    <div class="stat-card-description">在日本占领东北的14年间</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="stat-card-number">128万</div>
+                    <div class="stat-card-label">平方公里国土沦陷</div>
+                    <div class="stat-card-description">相当于日本国土面积的3.5倍</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-card-number">14年</div>
+                    <div class="stat-card-label">抗日战争</div>
+                    <div class="stat-card-description">从1931年至1945年日本投降</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 事件经过 - 现代化时间轴 -->
+    <section id="event-timeline" class="history-section" style="padding: 5rem 0; background: #f5f5f5;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">EVENT TIMELINE</div>
+                <h2 class="section-title-enhanced">事件经过</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    九一八事变是日本蓄意制造并发动的侵华战争开端，是日本帝国主义企图以武力征服中国的重要步骤
+                </p>
+            </div>
+
+            <div class="timeline-modern">
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年9月18日<br>22:20</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>柳条湖事件</h3>
+                        <p>日本关东军独立守备队第二大队第三中队所属的河本末守中尉率其部下，在沈阳北大营西侧，柳条湖附近的南满铁路路轨上引爆小型炸药，炸毁了小段铁路。这是日本蓄意制造的事端，企图嫁祸于中国军队。</p>
+                        <img class="timeline-image" src="https://p3-doubao-search-sign.byteimg.com/pgc-image/SjKnXKM4BF6d6P~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=pLtyUjy1uWEy0eP7iz6AqmdfXUQ%3D"
+                            alt="柳条湖事件">
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年9月18日<br>22:30</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>日军进攻北大营</h3>
+                        <p>日本关东军以柳条湖事件为借口，向中国东北军北大营发起进攻。东北军第七旅在旅长王以哲的指挥下，部分官兵进行了抵抗，但由于蒋介石的"不抵抗政策"，大部分官兵被迫撤退。</p>
+                        <img class="timeline-image" src="https://p11-doubao-search-sign.byteimg.com/labis/acee063f406596e7b12201f78611a7cb~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=9610MYv822IDGO6yGq9IPF1ku40%3D"
+                            alt="日军进攻北大营">
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年9月19日<br>凌晨</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>占领沈阳城</h3>
+                        <p>日军占领沈阳城，控制了东北的政治、经济、文化中心。随后分兵侵占吉林、黑龙江等省，开始了对整个东北的侵略。</p>
+                        <img class="timeline-image" src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/1dd13e0b3e064eb18cf520232e93a235~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=EAyVpoF2LtgNFnBSPPbZWaBJij8%3D"
+                            alt="日军占领沈阳">
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年9月19日<br>上午</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>长春陷落</h3>
+                        <p>日军占领长春，吉林省代主席熙洽投降。日军的侵略步伐迅速扩大，东北各地相继沦陷。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年9月21日</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>吉林全省沦陷</h3>
+                        <p>日军占领吉林市，吉林全省沦陷。东北的半壁江山已落入日本侵略者之手。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1931年11月19日</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>齐齐哈尔陷落</h3>
+                        <p>日军占领齐齐哈尔，黑龙江省大部分地区沦陷。东北抗日义勇军开始组织抵抗。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1932年1月3日</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>锦州陷落</h3>
+                        <p>日军占领锦州，辽宁省全部沦陷。这是东北军最后的抵抗据点，至此东北军主力全部撤出东北。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1932年2月5日</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>哈尔滨陷落 - 东北全境沦陷</h3>
+                        <p>日军占领哈尔滨，东北全境沦陷。从九一八事变爆发到东北全境沦陷，仅用了128天时间。3000多万东北同胞陷入了日本侵略者的铁蹄之下。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item-modern">
+                    <div class="timeline-date-modern">1932年3月1日</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content-modern">
+                        <h3>伪满洲国成立</h3>
+                        <p>日本在东北建立伪满洲国傀儡政权，溥仪任"执政"。日本开始了对东北人民长达14年之久的奴役和殖民统治。</p>
+                        <img class="timeline-image" src="https://p11-doubao-search-sign.byteimg.com/labis/495b0ec11ff79f5a804939ced047645d~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=BwSqkzk4djjCmwUyMq7rFgcszYE%3D"
+                            alt="伪满洲国成立">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关键节点 -->
+    <section id="key-points" class="history-section" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">KEY POINTS</div>
+                <h2 class="section-title-enhanced">关键节点</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    深入了解九一八事变的关键历史时刻
+                </p>
+            </div>
+
+            <div class="key-points-enhanced">
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-bomb"></i></div>
+                    <h3>柳条湖事件</h3>
+                    <p>1931年9月18日夜，日本关东军炸毁沈阳柳条湖附近南满铁路路轨，嫁祸中国军队，制造了九一八事变的导火索。这是日本精心策划的侵略阴谋。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1931年9月18日</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 沈阳柳条湖</span>
+                    </div>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>北大营被袭</h3>
+                    <p>日军以柳条湖事件为借口，向中国东北军北大营发起进攻。由于蒋介石的"不抵抗政策"，东北军大部分官兵被迫撤退，仅有部分爱国官兵进行了英勇抵抗。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1931年9月18日</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 沈阳北大营</span>
+                    </div>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-city"></i></div>
+                    <h3>沈阳陷落</h3>
+                    <p>日军占领沈阳城，控制了东北的政治、经济、文化中心。随后分兵侵占吉林、黑龙江等省，开始了对整个东北的侵略。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1931年9月19日</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 沈阳</span>
+                    </div>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-flag"></i></div>
+                    <h3>东北全境沦陷</h3>
+                    <p>日军占领哈尔滨，东北全境沦陷。仅用128天时间，日本就占领了相当于其国土面积3.5倍的中国东北。3000多万东北同胞陷入了日本侵略者的铁蹄之下。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1932年2月5日</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 哈尔滨</span>
+                    </div>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-user-secret"></i></div>
+                    <h3>伪满洲国成立</h3>
+                    <p>日本在东北建立伪满洲国傀儡政权，扶植溥仪为"执政"。日本开始了对东北人民长达14年之久的奴役和殖民统治，实行残酷的法西斯统治。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1932年3月1日</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 长春</span>
+                    </div>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-fist-raised"></i></div>
+                    <h3>中国人民的抗日斗争</h3>
+                    <p>九一八事变后，中国人民开始了长达14年的抗日斗争。东北人民组织了抗日义勇军，中国共产党领导的东北抗日联军也在东北开展了艰苦卓绝的抗日游击战争。</p>
+                    <div class="key-point-meta-enhanced">
+                        <span><i class="fas fa-calendar"></i> 1931-1945年</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 中国东北</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史影响 -->
+    <section id="impact" class="history-section" style="padding: 5rem 0; background: #f5f5f5;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL IMPACT</div>
+                <h2 class="section-title-enhanced">历史影响</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    九一八事变对中国和世界产生了深远的影响
+                </p>
+            </div>
+
+            <div class="background-card">
+                <div class="background-grid">
+                    <div class="background-text">
+                        <h3><i class="fas fa-globe"></i> 世界反法西斯战争的起点</h3>
+                        <p>九一八事变的发生，标志着世界反法西斯战争的起点，揭开了第二次世界大战东方战场的序幕。</p>
+                        <div class="highlight-box">
+                            <p>💡 九一八事变是日本帝国主义长期以来推行对华侵略扩张政策的必然结果，也是它企图以武力征服中国的重要步骤。</p>
+                        </div>
+                        <p>此后，中日民族矛盾逐步上升到主要地位，中国国内的阶级关系发生重大变动。在中国共产党的号召下，中国人民掀起了抗日救亡运动。</p>
+                    </div>
+                    <div class="background-image-enhanced">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/4e2cccc7c4572e757a3847b653d7aa65~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1764211741&x-signature=7DY81LXG01LLK8%2Bzv%2FGiy6Pwt3U%3D"
+                            alt="九一八事变纪念馆">
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points-enhanced">
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-heart-broken"></i></div>
+                    <h3>人民的沉重灾难</h3>
+                    <p>日本侵略者在东北实行了残酷的殖民统治，对东北人民进行了大规模的屠杀、掠夺和奴役。据统计，在日本占领东北的14年间，东北人民伤亡达3000万人以上，财产损失不计其数。</p>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>民族觉醒</h3>
+                    <p>九一八事变使中国人民深刻认识到了日本帝国主义的侵略本质，激发了中国人民的民族觉醒和爱国精神。同时也使中国人民认识到了团结抗日的重要性。</p>
+                </div>
+
+                <div class="key-point-card-enhanced">
+                    <div class="key-point-icon"><i class="fas fa-fire-alt"></i></div>
+                    <h3>抗日战争的起点</h3>
+                    <p>九一八事变后，中国人民开始了长达14年的抗日斗争。东北人民组织了抗日义勇军，中国共产党领导的东北抗日联军也在东北开展了艰苦卓绝的抗日游击战争。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史文献 - 现代化设计 -->
+    <section id="documents" class="history-section" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">HISTORICAL DOCUMENTS</div>
+                <h2 class="section-title-enhanced">历史文献</h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">
+                    珍贵的历史文献，让我们更深入地了解九一八事变的真相
+                </p>
+            </div>
+
+            <div class="documents-enhanced">
+                <div class="document-card-enhanced">
+                    <div class="document-header">
+                        <div class="document-icon"><i class="fas fa-scroll"></i></div>
+                        <h3>田中奏折</h3>
+                        <div class="document-meta-enhanced">
+                            <span><i class="fas fa-calendar"></i> 1927年</span>
+                            <span><i class="fas fa-file-alt"></i> 秘密文件</span>
+                        </div>
+                    </div>
+                    <div class="document-body">
+                        <p>《田中奏折》是1927年日本首相田中义一向天皇提交的秘密奏折，提出了日本侵略扩张的总方针。</p>
+                        <div class="document-excerpt">
+                            "欲征服中国，必先征服满蒙；欲征服世界，必先征服中国。"
+                        </div>
+                        <button class="view-document-btn" data-document="tanaka">
+                            查看全文 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="document-card-enhanced">
+                    <div class="document-header">
+                        <div class="document-icon"><i class="fas fa-file-contract"></i></div>
+                        <h3>东方会议纪要</h3>
+                        <div class="document-meta-enhanced">
+                            <span><i class="fas fa-calendar"></i> 1927年</span>
+                            <span><i class="fas fa-file-alt"></i> 会议纪要</span>
+                        </div>
+                    </div>
+                    <div class="document-body">
+                        <p>东方会议是1927年日本首相田中义一在东京主持召开的一次重要会议，会议制定了《对华政策纲要》。</p>
+                        <div class="document-excerpt">
+                            "满蒙地区与中国本土在政治、经济上有所不同，日本应予以特殊考虑。"
+                        </div>
+                        <button class="view-document-btn" data-document="oriental">
+                            查看全文 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="document-card-enhanced">
+                    <div class="document-header">
+                        <div class="document-icon"><i class="fas fa-search"></i></div>
+                        <h3>柳条湖事件调查报告</h3>
+                        <div class="document-meta-enhanced">
+                            <span><i class="fas fa-calendar"></i> 1931年</span>
+                            <span><i class="fas fa-file-alt"></i> 调查报告</span>
+                        </div>
+                    </div>
+                    <div class="document-body">
+                        <p>这是日本关东军为了掩盖九一八事变真相而伪造的调查报告，声称柳条湖事件是中国军队所为。</p>
+                        <div class="document-excerpt">
+                            "在现场附近发现了中国军队使用的步枪子弹壳三枚，以及中国军队的军帽一顶。"
+                        </div>
+                        <button class="view-document-btn" data-document="liutiaohu">
+                            查看全文 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="document-card-enhanced">
+                    <div class="document-header">
+                        <div class="document-icon"><i class="fas fa-flag-checkered"></i></div>
+                        <h3>中共中央关于日本帝国主义强占满洲事变的决议</h3>
+                        <div class="document-meta-enhanced">
+                            <span><i class="fas fa-calendar"></i> 1931年9月22日</span>
+                            <span><i class="fas fa-file-alt"></i> 决议</span>
+                        </div>
+                    </div>
+                    <div class="document-body">
+                        <p>这是中国共产党在九一八事变后发表的决议，指出日本帝国主义的侵略行为是对中国主权和领土完整的严重侵犯，号召全国人民起来反抗日本侵略。</p>
+                        <div class="document-excerpt">
+                            "日本帝国主义强暴地占领了中国的东北，这是瓜分中国的开始，是武装干涉中国革命的开始，是世界新的帝国主义战争的序幕。"
+                        </div>
+                        <button class="view-document-btn" data-document="ccp-resolution">
+                            查看全文 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史文献弹窗 - 增强版 -->
+    <div id="document-modal" class="modal-enhanced">
+        <div class="modal-content-enhanced">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title-enhanced" id="modal-title"></h3>
+                    <p class="modal-subtitle" id="modal-subtitle"></p>
+                </div>
+                <span class="close-modal-enhanced">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-content"></div>
+        </div>
+    </div>
+
+    <!-- 底部信息栏 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/bf0db36f62c14b53aca89b5fe085706e~tplv-a9rns2rl98-image.image?rcl=202509281048503C93D9A5843A0763F1EB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1761619758&x-signature=Qms8gdWXnC4L2ptIGfkVtnn%2B%2B4Y%3D"
+                        alt="九一八事变纪念网站">
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="history.html">历史专题</a></li>
+                        <li><a href="heroes.html">英雄人物</a></li>
+                        <li><a href="news.html">资讯动态</a></li>
+                        <li><a href="interaction.html">互动参与</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@918memorial.org</li>
+                        <li><i class="fas fa-phone"></i> 010-12345678</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村南大街5号</li>
+                    </ul>
+                </div>
+                <div class="footer-about">
+                    <h4>关于我们</h4>
+                    <p>九一八事变纪念网站致力于铭记历史、缅怀先烈、珍爱和平、开创未来，弘扬爱国主义精神，促进历史教育和和平理念的传播。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 九一八事变纪念网站 版权所有</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- 页面脚本 -->
+    <script>
+        // 历史文献内容
+        const documents = {
+            tanaka: {
+                title: "田中奏折",
+                subtitle: "1927年 · 秘密文件",
+                content: `
+                    <p>朕昭和二年四月二十五日，御下田中义一总理大臣之奏呈，内称：</p>
+                    <p>查明治大帝之遗策，第一期征服台湾，第二期征服朝鲜，既已实现。惟第三期之灭亡满蒙，以便征服中国全土，使异服之南洋及亚细亚全带，无不畏我仰我鼻息之云云。</p>
+                    <p>然欲以铁与血主义实保中国东三省，则第三国之阿美利加必受支那以夷制夷之煽动起来而制我，斯时也，我之对美角逐势不容辞。更进而以日美战争而英、佛等国亦必乘我之弊，群起而谋我，则我国永无宁日矣。</p>
+                    <p>斯时也，我帝国之大计，惟在首先以迅雷不及掩耳之手段，一举而占领全中国东三省，以立征服中国全土之基础，此乃明治大帝之遗策，亦为我帝国存亡上必要之大事也。</p>
+                    <p>然欲占领中国东三省，必先征服满蒙，欲征服满蒙，必先征服支那，欲征服支那，必先征服世界。此乃明治大帝之遗策，亦为我帝国存亡上必要之大事也。</p>
+                    <p>然欲以铁与血主义实保中国东三省，则第三国之阿美利加必受支那以夷制夷之煽动起来而制我，斯时也，我之对美角逐势不容辞。更进而以日美战争而英、佛等国亦必乘我之弊，群起而谋我，则我国永无宁日矣。</p>
+                    <p>斯时也，我帝国之大计，惟在首先以迅雷不及掩耳之手段，一举而占领全中国东三省，以立征服中国全土之基础，此乃明治大帝之遗策，亦为我帝国存亡上必要之大事也。</p>
+                `
+            },
+            oriental: {
+                title: "东方会议纪要",
+                subtitle: "1927年 · 会议纪要",
+                content: `
+                    <p>昭和二年（1927年）七月二十五日，内阁总理大臣田中义一在东京主持召开东方会议，讨论对华政策。会议决定了《对华政策纲要》，主要内容如下：</p>
+                    <p><strong>一、关于满蒙政策</strong></p>
+                    <p>（一）满蒙地区与中国本土在政治、经济上有所不同，日本应予以特殊考虑。</p>
+                    <p>（二）凡对日本在满蒙之特殊地位权益有侵害之虞时，不问其来自何方，都必须加以防护。</p>
+                    <p>（三）万一动乱波及满蒙，扰乱治安，使日本在满蒙之特殊地位与权益有受侵害之虞时，日本必须采取断然措施，以保护之。</p>
+                    <p><strong>二、关于对中国本土政策</strong></p>
+                    <p>（一）对于中国本土之政策，应尊重中国之主权与领土完整，不干涉中国之内政。</p>
+                    <p>（二）对于中国之内政，应采取积极援助之态度，以促进中国之统一与稳定。</p>
+                    <p>（三）对于中国之经济发展，应予以合作与援助，以增进两国之共同利益。</p>
+                    <p><strong>三、关于对南方政策</strong></p>
+                    <p>（一）对于中国南方之政策，应尊重中国之主权与领土完整，不干涉中国之内政。</p>
+                    <p>（二）对于中国南方之经济发展，应予以合作与援助，以增进两国之共同利益。</p>
+                    <p>（三）对于中国南方之民族运动，应予以适当之关注与引导，以避免其对日本之利益造成损害。</p>
+                `
+            },
+            liutiaohu: {
+                title: "柳条湖事件调查报告",
+                subtitle: "1931年 · 调查报告",
+                content: `
+                    <p>昭和六年（1931年）九月十八日晚十时许，在奉天北大营西侧，柳条湖附近之南满铁路路轨，被中国军队破坏。</p>
+                    <p>据现场调查，路轨被破坏约一米，枕木被烧毁。在现场附近发现了中国军队使用的步枪子弹壳三枚，以及中国军队的军帽一顶。</p>
+                    <p>据目击者称，当时有大约三十名中国士兵在现场附近活动，并向日本军队开枪射击。</p>
+                    <p>日本军队为了保护南满铁路的安全，以及维护当地的治安，不得不采取自卫措施，向中国军队发起进攻。</p>
+                    <p>此次事件是中国军队蓄意破坏南满铁路，挑起事端的行为。日本军队将采取一切必要措施，以保护日本在满洲的权益和安全。</p>
+                    <p><em>注：此报告为日本关东军伪造的文件，目的是为侵略行为寻找借口。实际上，柳条湖事件是日本关东军自己策划并实施的阴谋。</em></p>
+                `
+            },
+            'ccp-resolution': {
+                title: "中共中央关于日本帝国主义强占满洲事变的决议",
+                subtitle: "1931年9月22日 · 决议",
+                content: `
+                    <p><strong>（1931年9月22日）</strong></p>
+                    <p>日本帝国主义强暴地占领了中国的东北，这是瓜分中国的开始，是武装干涉中国革命的开始，是世界新的帝国主义战争的序幕。</p>
+                    <p>日本帝国主义的目的，是要把中国变成它的殖民地，是要把中国从帝国主义的半殖民地变成日本帝国主义的独占殖民地。</p>
+                    <p>日本帝国主义的侵略行为，不仅是对中国主权和领土完整的严重侵犯，而且是对世界和平的严重威胁。</p>
+                    <p><strong>中国共产党号召全国人民：</strong></p>
+                    <p>一、反对日本帝国主义的侵略行为，要求日本帝国主义立即撤出中国东北。</p>
+                    <p>二、要求国民党政府立即停止内战，一致对外，实行抗日救国。</p>
+                    <p>三、组织群众的反帝运动，发动群众的抗日斗争。</p>
+                    <p>四、组织工人、农民、学生、士兵的抗日团体，开展抗日游击战争。</p>
+                    <p>五、联合世界上一切反对帝国主义的力量，共同反对日本帝国主义的侵略行为。</p>
+                    <p>中国共产党将领导全国人民，为反对日本帝国主义的侵略，为争取中国的独立、自由和解放而斗争到底。</p>
+                `
+            }
+        };
+
+        // DOM加载完成后执行
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('document-modal');
+            const closeModal = document.querySelector('.close-modal-enhanced');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubtitle = document.getElementById('modal-subtitle');
+            const modalContent = document.getElementById('modal-content');
+            const viewButtons = document.querySelectorAll('.view-document-btn');
+
+            // 打开弹窗
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const documentId = this.getAttribute('data-document');
+                    const document = documents[documentId];
+
+                    modalTitle.textContent = document.title;
+                    modalSubtitle.textContent = document.subtitle;
+                    modalContent.innerHTML = document.content;
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // 关闭弹窗
+            closeModal.addEventListener('click', function () {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+
+            // 点击弹窗外部关闭弹窗
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // 快速导航高亮
+            const quickNavLinks = document.querySelectorAll('.quick-nav-link');
+            const sections = document.querySelectorAll('.history-section');
+
+            window.addEventListener('scroll', function () {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                quickNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 平滑滚动
+            quickNavLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
